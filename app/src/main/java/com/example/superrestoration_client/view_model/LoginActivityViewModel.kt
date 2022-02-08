@@ -10,6 +10,7 @@ import com.example.superrestoration_client.model.Model
 import com.example.superrestoration_client.model.User
 import com.example.superrestoration_client.network.ModelRequest
 import com.example.superrestoration_client.network.UserRequest
+import com.example.superrestoration_client.utils.Config
 import com.example.superrestoration_client.utils.LiveDataManager
 import com.example.superrestoration_client.utils.SharePreferenceUtil
 import okhttp3.OkHttpClient
@@ -21,12 +22,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class LoginActivityViewModel: ViewModel() {
     private var user: MutableLiveData<User> = MutableLiveData()
-    private var models: MutableLiveData<List<Model>> = MutableLiveData()
     private var loginStatus: MutableLiveData<Int>  = MutableLiveData()
-    private val baseUrl = "http://192.168.0.107:8181"
     init {
         user.value = User()
-        models.value = listOf(Model())
         loginStatus.value = -1
     }
     fun getUser(): MutableLiveData<User> {
@@ -38,16 +36,12 @@ class LoginActivityViewModel: ViewModel() {
         this.user!!.postValue(value)
     }
 
-    fun getModels(): MutableLiveData<List<Model>> {
-        return this.models!!
-    }
-
     fun getLoginStatus(): MutableLiveData<Int> {
         return this.loginStatus!!
     }
 
     fun loadData(context: Context){
-        // 请求服务器更新数据
+        // 读取上一次的登录信息
         var newUser = User()
         newUser.setUserName(SharePreferenceUtil.getData(context, "UserName", String()) as String)
         newUser.setUserPwd(SharePreferenceUtil.getData(context, "UserPwd", String()) as String)
@@ -59,7 +53,7 @@ class LoginActivityViewModel: ViewModel() {
         var user_name = user!!.value!!.getUserName()
         var user_password = user!!.value!!.getUserPwd()
 
-        var retrofit = Retrofit.Builder().baseUrl(baseUrl)
+        var retrofit = Retrofit.Builder().baseUrl(Config.baseUrl)
             .addConverterFactory(GsonConverterFactory.create())// 自动转换
             .build()
         var httpBinService = retrofit.create(UserRequest::class.java)
@@ -67,7 +61,6 @@ class LoginActivityViewModel: ViewModel() {
         call.enqueue(object : Callback<Int>{
             override fun onResponse(call: Call<Int>, response: Response<Int>) {
                 loginStatus.postValue(response.body())
-                Log.e(TAG, "login status: ${loginStatus.value}")
             }
             override fun onFailure(call: Call<Int>, t: Throwable) {
                 loginStatus.postValue(0)

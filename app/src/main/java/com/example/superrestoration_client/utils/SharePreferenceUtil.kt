@@ -3,6 +3,10 @@ package com.example.superrestoration_client.utils
 import android.content.Context
 import android.content.SharedPreferences
 
+/**
+ * 通过 SharedPreferences 保存用户信息
+ * 保存路径为： /data/data/<package name>/shared_prefs
+ */
 object SharePreferenceUtil {
     private const val FILE_NAME = "sp"
     fun writeData(context: Context, key: String, value: Any) {

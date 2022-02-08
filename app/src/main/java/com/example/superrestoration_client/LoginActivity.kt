@@ -34,19 +34,15 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun initObserver(){
-        loginActivityViewModel.getUser().observe(this, Observer {
-            Log.e("MA-------->", "跳转到：${it.getUserId()}, ${it.getUserName()}")
-        })
-        loginActivityViewModel.getModels().observe(this, Observer {
-            Log.i(ContentValues.TAG, "getModels: " + it)
-        })
         loginActivityViewModel.getLoginStatus().observe(this, Observer {
-            if(it == 3){// 登录成功
+            if(it == 3){
+                // 登录成功，保存登录信息并跳转到主界面
                 SharePreferenceUtil.writeData(this, "UserName", loginActivityViewModel.getUser().value!!.getUserName())
                 SharePreferenceUtil.writeData(this, "UserPwd", loginActivityViewModel.getUser().value!!.getUserPwd())
                 var intent = Intent()
                 intent.setClass(this, MainActivity::class.java)
                 startActivity(intent)
+                Log.e(ContentValues.TAG, "login status: $it")
             }else if (it > 0){
 //                Common().alert(this, "用户名或密码错误！！")
 //                Toast.makeText(this, "用户名或密码错误！！", Toast.LENGTH_LONG).show()

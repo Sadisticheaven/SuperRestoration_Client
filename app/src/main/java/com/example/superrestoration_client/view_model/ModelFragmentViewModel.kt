@@ -1,12 +1,12 @@
 package com.example.superrestoration_client.view_model
 
-import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.superrestoration_client.model.Model
 import com.example.superrestoration_client.network.ModelRequest
+import com.example.superrestoration_client.utils.Config
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,14 +17,13 @@ import kotlin.reflect.typeOf
 class ModelFragmentViewModel: ViewModel() {
     private var modelList: MutableLiveData<ArrayList<Model>> = MutableLiveData()
     private var requestStatus: MutableLiveData<Int> = MutableLiveData()
-    private val baseUrl = "http://192.168.0.107:8182"
     init {
         modelList.value = ArrayList()
         requestStatus.value = -1
     }
 
     fun loadModels(){
-        var retrofit = Retrofit.Builder().baseUrl(baseUrl)
+        var retrofit = Retrofit.Builder().baseUrl(Config.baseUrl)
             .addConverterFactory(GsonConverterFactory.create())// 自动转换
             .build()
         var httpBinService = retrofit.create(ModelRequest::class.java)
@@ -38,12 +37,12 @@ class ModelFragmentViewModel: ViewModel() {
                     requestStatus.postValue(1)
                 }else{
                     requestStatus.postValue(0)
-                    Log.e(ContentValues.TAG, "getModels Failed: ${response.code()}")
+                    Log.e(TAG, "getModels Failed: ${response.code()}")
                 }
             }
             override fun onFailure(call: Call<List<Model>>, t: Throwable) {
                 requestStatus.postValue(0)
-                Log.e(ContentValues.TAG, "getModels Failed!!")
+                Log.e(TAG, "getModels Failed!!")
             }
         })
     }
