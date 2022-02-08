@@ -3,9 +3,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <TextView
-        android:layout_height="match_parent"
+    <HorizontalScrollView
         android:layout_width="match_parent"
-        android:id="@+id/text"
-        />
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="360dp"
+                android:id="@+id/text" />
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_check_24"
+                android:id="@+id/add_model_to_list" />
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_clear_24"
+                android:id="@+id/remove_model_from_list"
+                android:visibility="gone"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="详细信息"/>
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
 </LinearLayout>

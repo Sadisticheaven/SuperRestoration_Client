@@ -17,9 +17,11 @@ import kotlin.reflect.typeOf
 class ModelFragmentViewModel: ViewModel() {
     private var modelList: MutableLiveData<ArrayList<Model>> = MutableLiveData()
     private var requestStatus: MutableLiveData<Int> = MutableLiveData()
+    private var selectList: MutableLiveData<MutableSet<Int>> = MutableLiveData()
     init {
         modelList.value = ArrayList()
         requestStatus.value = -1
+        selectList.value = mutableSetOf()
     }
 
     fun loadModels(){
@@ -49,4 +51,9 @@ class ModelFragmentViewModel: ViewModel() {
 
     fun getModelList(): MutableLiveData<ArrayList<Model>> { return modelList }
     fun getRequestStatus(): MutableLiveData<Int> { return requestStatus }
+    fun addModel(position: Int): Boolean { return selectList.value!!.add(position) }
+    fun removeModel(position: Int): Boolean { return selectList.value!!.remove(position) }
+    fun getSelectList(): MutableSet<Int> { return selectList.value!! }
+
+
 }
