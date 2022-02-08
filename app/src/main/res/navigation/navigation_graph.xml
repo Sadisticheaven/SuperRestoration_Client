@@ -7,10 +7,14 @@
 
     <fragment android:id="@+id/modelFragment"
         android:name="com.example.superrestoration_client.fragment.ModelFragment"
-        tools:layout="@layout/fragment_model"
-        android:label="ModelFragment"/>
-    <fragment android:id="@+id/bfragment"
-        android:name="com.example.superrestoration_client.fragment.BFragment"
-        tools:layout="@layout/fragment_b"
-        android:label="bfragment" />
+        tools:layout="@layout/fragment_model"/>
+    <fragment android:id="@+id/datasetfragment"
+        android:name="com.example.superrestoration_client.fragment.DatasetFragment"
+        tools:layout="@layout/fragment_dataset" />
+    <fragment android:id="@+id/resultfragment"
+        android:name="com.example.superrestoration_client.fragment.ResultFragment"
+        tools:layout="@layout/fragment_result" />
+    <fragment android:id="@+id/userfragment"
+        android:name="com.example.superrestoration_client.fragment.UserFragment"
+        tools:layout="@layout/fragment_user" />
 </navigation>

@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.superrestoration_client.R
 import com.example.superrestoration_client.model.Model
 
+/**
+ * 负责将得到的 model和布局中的 item关联起来，以便在 Recycler View 中显示
+ */
 class ModelAdaptor(private var models: List<Model>, private var context: Context) : RecyclerView.Adapter<ModelAdaptor.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var textView: TextView = itemView.findViewById(R.id.text)

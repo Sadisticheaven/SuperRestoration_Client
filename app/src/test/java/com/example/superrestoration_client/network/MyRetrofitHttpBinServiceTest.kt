@@ -90,7 +90,7 @@ class MyRetrofitHttpBinServiceTest{
         // 配置cache
         val cacheDir = "C:\\Users\\10142\\Desktop\\AndroidCache"
         var okHttpClient = OkHttpClient().newBuilder()
-            .cache(Cache(File(cacheDir), 1024*1024))
+            .cache(Cache(File(cacheDir), (1024*1024).toLong()))
             .build()
 
 
