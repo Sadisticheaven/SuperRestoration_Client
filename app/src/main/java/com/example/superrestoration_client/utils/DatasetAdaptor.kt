@@ -7,16 +7,16 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.superrestoration_client.R
-import com.example.superrestoration_client.model.Model
+import com.example.superrestoration_client.model.Dataset
 
 /**
  * 负责将得到的 model和布局中的 item关联起来，以便在 Recycler View 中显示
  */
-class ModelAdaptor(private var models: List<Model>, private var context: Context) : RecyclerView.Adapter<ModelAdaptor.ViewHolder>() {
+class DatasetAdaptor(private var datasets: List<Dataset>, private var context: Context) : RecyclerView.Adapter<DatasetAdaptor.ViewHolder>() {
     class ViewHolder(itemView: View, onItemClickListener: OnItemClickListener) : RecyclerView.ViewHolder(itemView) {
-        var textView: TextView = itemView.findViewById(R.id.text)
-        private var addButton: ImageButton = itemView.findViewById(R.id.add_model_to_list)
-        private var removeButton: ImageButton = itemView.findViewById(R.id.remove_model_from_list)
+        var textView: TextView = itemView.findViewById(R.id.dataset_text)
+        private var addButton: ImageButton = itemView.findViewById(R.id.add_dataset_to_list)
+        private var removeButton: ImageButton = itemView.findViewById(R.id.remove_dataset_from_list)
         init {
             // 为item中控件添加回调
             addButton.setOnClickListener {
@@ -33,16 +33,16 @@ class ModelAdaptor(private var models: List<Model>, private var context: Context
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = View.inflate(context, R.layout.ryc_item_model, null)
+        val view = View.inflate(context, R.layout.ryc_item_dataset, null)
         return ViewHolder(view, mOnItemClickListener)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.textView.text = models[position].getModelName()
+        holder.textView.text = datasets[position].getDatasetName()
     }
 
     override fun getItemCount(): Int {
-        return models.size
+        return datasets.size
     }
 
     // 44-52:为Item中的控件添加回调

@@ -6,17 +6,17 @@
     <TextView
         android:layout_height="match_parent"
         android:layout_width="360dp"
-        android:id="@+id/text" />
+        android:id="@+id/dataset_text" />
     <ImageButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_baseline_check_24"
-        android:id="@+id/add_model_to_list"
+        android:id="@+id/add_dataset_to_list"
         android:visibility="gone"/>
     <ImageButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_baseline_clear_24"
-        android:id="@+id/remove_model_from_list"
+        android:id="@+id/remove_dataset_from_list"
         android:visibility="gone"/>
 </LinearLayout>

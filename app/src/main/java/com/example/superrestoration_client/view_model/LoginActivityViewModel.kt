@@ -5,15 +5,11 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.superrestoration_client.LoginActivity
-import com.example.superrestoration_client.model.Model
 import com.example.superrestoration_client.model.User
-import com.example.superrestoration_client.network.ModelRequest
 import com.example.superrestoration_client.network.UserRequest
 import com.example.superrestoration_client.utils.Config
 import com.example.superrestoration_client.utils.LiveDataManager
 import com.example.superrestoration_client.utils.SharePreferenceUtil
-import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,36 +24,36 @@ class LoginActivityViewModel: ViewModel() {
         loginStatus.value = -1
     }
     fun getUser(): MutableLiveData<User> {
-        return this.user!!
+        return this.user
     }
 
     fun setUser(value: User){
         this.user = LiveDataManager.with("user")
-        this.user!!.postValue(value)
+        this.user.postValue(value)
     }
 
     fun getLoginStatus(): MutableLiveData<Int> {
-        return this.loginStatus!!
+        return this.loginStatus
     }
 
     fun loadData(context: Context){
         // 读取上一次的登录信息
-        var newUser = User()
-        newUser.setUserName(SharePreferenceUtil.getData(context, "UserName", String()) as String)
-        newUser.setUserPwd(SharePreferenceUtil.getData(context, "UserPwd", String()) as String)
+        val newUser = User()
+        newUser.setUserName(SharePreferenceUtil.getData("loginfo", context, "UserName", String()) as String)
+        newUser.setUserPwd(SharePreferenceUtil.getData("loginfo", context, "UserPwd", String()) as String)
         setUser(newUser)
     }
 
     fun loginRequest(){
         //请求服务器
-        var user_name = user!!.value!!.getUserName()
-        var user_password = user!!.value!!.getUserPwd()
+        val userName = user.value!!.getUserName()
+        val userPassword = user.value!!.getUserPwd()
 
-        var retrofit = Retrofit.Builder().baseUrl(Config.baseUrl)
+        val retrofit = Retrofit.Builder().baseUrl(Config.baseUrl)
             .addConverterFactory(GsonConverterFactory.create())// 自动转换
             .build()
-        var httpBinService = retrofit.create(UserRequest::class.java)
-        var call: Call<Int> = httpBinService.userLogin(user_name, user_password)
+        val httpBinService = retrofit.create(UserRequest::class.java)
+        val call: Call<Int> = httpBinService.userLogin(userName, userPassword)
         call.enqueue(object : Callback<Int>{
             override fun onResponse(call: Call<Int>, response: Response<Int>) {
                 loginStatus.postValue(response.body())

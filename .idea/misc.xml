@@ -5,11 +5,14 @@
       <map>
         <entry key="..\:/Document/SuperRestoration_Client/app/src/main/res/drawable/btn_color_selector.xml" value="0.19166666666666668" />
         <entry key="..\:/Document/SuperRestoration_Client/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.16298527443105756" />
+        <entry key="..\:/Document/SuperRestoration_Client/app/src/main/res/layout-w936dp/fragment_dataset.xml" value="0.1" />
         <entry key="..\:/Document/SuperRestoration_Client/app/src/main/res/layout/activity_login.xml" value="0.176" />
         <entry key="..\:/Document/SuperRestoration_Client/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Document/SuperRestoration_Client/app/src/main/res/layout/fragment_a.xml" value="0.2" />
         <entry key="..\:/Document/SuperRestoration_Client/app/src/main/res/layout/fragment_b.xml" value="0.4" />
+        <entry key="..\:/Document/SuperRestoration_Client/app/src/main/res/layout/fragment_dataset.xml" value="0.25364583333333335" />
         <entry key="..\:/Document/SuperRestoration_Client/app/src/main/res/layout/fragment_model.xml" value="0.2" />
+        <entry key="..\:/Document/SuperRestoration_Client/app/src/main/res/layout/ryc_item_dataset.xml" value="0.25364583333333335" />
         <entry key="..\:/Document/SuperRestoration_Client/app/src/main/res/layout/ryc_item_model.xml" value="0.176" />
         <entry key="..\:/Document/SuperRestoration_Client/app/src/main/res/menu/menu.xml" value="0.1296875" />
       </map>

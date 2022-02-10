@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
         <variable
-            name="viewModel"
+            name="loginViewModel"
             type="com.example.superrestoration_client.view_model.LoginActivityViewModel" />
     </data>
 
@@ -19,7 +17,7 @@
             android:id="@+id/edit_name"
             android:layout_width="300dp"
             android:layout_height="50dp"
-            android:text="@={viewModel.user.userName}"
+            android:text="@={loginViewModel.user.userName}"
             android:layout_centerInParent="true"
             android:hint="@string/user_name" />
 
@@ -27,7 +25,7 @@
             android:id="@+id/edit_pwd"
             android:layout_width="300dp"
             android:layout_height="50dp"
-            android:text="@={viewModel.user.userPwd}"
+            android:text="@={loginViewModel.user.userPwd}"
             android:layout_centerInParent="true"
             android:layout_below="@id/edit_name"
             android:hint="@string/password"/>
@@ -36,7 +34,7 @@
             android:id="@+id/test_login"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:onClick="test_login_Click"
+            android:onClick="loginClick"
             android:text="@string/login"
             android:layout_centerInParent="true"
             android:layout_below="@id/edit_pwd" />
