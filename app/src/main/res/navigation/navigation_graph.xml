@@ -3,11 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/modelFragment">
-
-    <fragment android:id="@+id/modelFragment"
-        android:name="com.example.superrestoration_client.fragment.ModelFragment"
-        tools:layout="@layout/fragment_model"/>
+    app:startDestination="@id/modelCombinationFragment">
+    <include app:graph="@navigation/navigation_graph_model_combination"/>
+    <fragment android:id="@+id/modelCombinationFragment"
+        android:name="com.example.superrestoration_client.fragment.ModelCombinationFragment"
+        tools:layout="@layout/fragment_model_combination" >
+        <action
+            android:id="@+id/action_modelCombinationFragment_to_navigation_graph_model_combination"
+            app:destination="@id/navigation_graph_model_combination" />
+    </fragment>
     <fragment android:id="@+id/datasetFragment"
         android:name="com.example.superrestoration_client.fragment.DatasetFragment"
         tools:layout="@layout/fragment_dataset" />
@@ -17,4 +21,5 @@
     <fragment android:id="@+id/userFragment"
         android:name="com.example.superrestoration_client.fragment.UserFragment"
         tools:layout="@layout/fragment_user" />
+
 </navigation>

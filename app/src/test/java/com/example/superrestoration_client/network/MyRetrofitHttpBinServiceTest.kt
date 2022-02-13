@@ -2,7 +2,9 @@ package com.example.superrestoration_client.network
 
 import android.content.ContentValues
 import android.util.Log
+import com.example.superrestoration_client.model.Combination
 import com.example.superrestoration_client.model.Model
+import com.example.superrestoration_client.utils.Config
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import okhttp3.*
@@ -105,5 +107,42 @@ class MyRetrofitHttpBinServiceTest{
         var response: Response<List<Model>> = call.execute()
         var modelList: List<Model>? = response.body()
         println(modelList)
+    }
+
+    @Test
+    fun setCombination(){
+        var combinations = arrayListOf<Combination>()
+//        var combination = Combination()
+//        combination.setName("test1")
+//        combination.setcombinationList(arrayListOf(1,2))
+//        combination.setOwnerId(1)
+//        combinations.add(combination)
+//        combination.setName("test2")
+//        combinations.add(combination)
+        val json = Gson().toJson(combinations)
+        println(json)
+        val retrofit = Retrofit.Builder().baseUrl(Config.baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())// 自动转换
+            .build()
+        val call: Call<Int> = retrofit.create(CombinationRequest::class.java)
+            .addCombinations(1, json)
+
+        var response: Response<Int> = call.execute()
+        val res = response.body()
+
+    }
+
+    @Test
+    fun getCombination(){
+        var retrofit = Retrofit.Builder().baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())// 自动转换
+            .build()
+
+        val call: Call<List<Combination>> = retrofit.create(CombinationRequest::class.java)
+            .getUserModelCombination(1)
+
+        var response: Response<List<Combination>> = call.execute()
+        var list: List<Combination>? = response.body()
+        println(list)
     }
 }

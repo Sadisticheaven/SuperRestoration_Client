@@ -11,4 +11,12 @@ class LiveDataManagerTest{
     fun withTest(){
 
     }
+
+    @Test
+    fun fortest(){
+        val len = 2
+        for (idx in 1..len){
+            println(idx)
+        }
+    }
 }

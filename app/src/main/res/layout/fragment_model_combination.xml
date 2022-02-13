@@ -3,31 +3,24 @@
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
-
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical">
         <fragment
-            android:id="@+id/nav_host"
+            android:id="@+id/navHost_modelCombination"
             android:name="com.example.superrestoration_client.utils.MyNavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             app:defaultNavHost="true"
-            app:navGraph="@navigation/navigation_graph"
-            android:layout_centerInParent="true"/>
-
+            app:navGraph="@navigation/navigation_graph_model_combination"
+            android:layout_below="@id/nav_bottom_model_combination"/>
         <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/nav_bottom"
+            android:id="@+id/nav_bottom_model_combination"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
             android:background="#E1DFDF"
-            app:menu="@menu/menu"
+            app:menu="@menu/menu_model_combination"
             app:labelVisibilityMode="labeled"/>
-
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:id="@+id/snackbar_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/nav_bottom"/>
     </RelativeLayout>
 </layout>

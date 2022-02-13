@@ -31,27 +31,46 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initObserver(){
-        loginActivityViewModel.getLoginStatus().observe(this, {
-            when {
-                it == 3 -> {
+        loginActivityViewModel.getLoginStatus().observe(this) {
+            when (it) {
+                2 -> {
                     // 登录成功，保存登录信息并跳转到主界面
-                    SharePreferenceUtil.writeData("loginfo", this, "UserName", loginActivityViewModel.getUser().value!!.getUserName())
-                    SharePreferenceUtil.writeData("loginfo", this, "UserPwd", loginActivityViewModel.getUser().value!!.getUserPwd())
+                    SharePreferenceUtil.writeData(
+                        "loginfo",
+                        this,
+                        "UserName",
+                        loginActivityViewModel.getUser().value!!.getUserName()
+                    )
+                    SharePreferenceUtil.writeData(
+                        "loginfo",
+                        this,
+                        "UserPwd",
+                        loginActivityViewModel.getUser().value!!.getUserPwd()
+                    )
                     val intent = Intent()
                     intent.setClass(this, MainActivity::class.java)
+                    intent.putExtra("currentUser", loginActivityViewModel.getUser().value)
                     startActivity(intent)
-                    Log.e(ContentValues.TAG, "login status: $it")
+                    Log.e(ContentValues.TAG, "login successfully")
                 }
-                it > 0 -> {
-        //                Common().alert(this, "用户名或密码错误！！")
-        //                Toast.makeText(this, "用户名或密码错误！！", Toast.LENGTH_LONG).show()
-                    Snackbar.make(window.decorView.findViewById(R.id.test_login), "用户名或密码错误！！", Snackbar.LENGTH_LONG).show()
+                1 -> {
+                    //                Common().alert(this, "用户名或密码错误！！")
+                    //                Toast.makeText(this, "用户名或密码错误！！", Toast.LENGTH_LONG).show()
+                    Snackbar.make(
+                        window.decorView.findViewById(R.id.test_login),
+                        "用户名或密码错误！！",
+                        Snackbar.LENGTH_LONG
+                    ).show()
                 }
-                it == 0 -> {
-                    Snackbar.make(window.decorView.findViewById(R.id.test_login), "无法连接服务器！！", Snackbar.LENGTH_LONG).show()
+                0 -> {
+                    Snackbar.make(
+                        window.decorView.findViewById(R.id.test_login),
+                        "无法连接服务器！！",
+                        Snackbar.LENGTH_LONG
+                    ).show()
                 }
             }
-        })
+        }
     }
 
     fun loginClick(view: android.view.View) {

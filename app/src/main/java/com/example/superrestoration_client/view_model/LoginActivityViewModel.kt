@@ -53,12 +53,18 @@ class LoginActivityViewModel: ViewModel() {
             .addConverterFactory(GsonConverterFactory.create())// 自动转换
             .build()
         val httpBinService = retrofit.create(UserRequest::class.java)
-        val call: Call<Int> = httpBinService.userLogin(userName, userPassword)
-        call.enqueue(object : Callback<Int>{
-            override fun onResponse(call: Call<Int>, response: Response<Int>) {
-                loginStatus.postValue(response.body())
+        val call: Call<User> = httpBinService.userLogin(userName, userPassword)
+        call.enqueue(object : Callback<User>{
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                val res: User = response.body()!!
+                if (res.getUserId() > 0){
+                    user.postValue(res)
+                    loginStatus.postValue(2)
+                }else{
+                    loginStatus.postValue(1)
+                }
             }
-            override fun onFailure(call: Call<Int>, t: Throwable) {
+            override fun onFailure(call: Call<User>, t: Throwable) {
                 loginStatus.postValue(0)
                 Log.e(TAG, "login Failed!!")
             }

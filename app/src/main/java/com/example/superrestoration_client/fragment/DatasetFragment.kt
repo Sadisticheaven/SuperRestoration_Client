@@ -12,10 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.superrestoration_client.R
 import com.example.superrestoration_client.utils.DatasetAdaptor
-import com.example.superrestoration_client.utils.ModelAdaptor
 import com.example.superrestoration_client.view_model.DatasetFragmentViewModel
 import com.example.superrestoration_client.view_model.MainActivityShareViewModel
-import com.example.superrestoration_client.view_model.ModelFragmentViewModel
 import com.google.android.material.snackbar.Snackbar
 
 class DatasetFragment:Fragment() {
@@ -35,13 +33,17 @@ class DatasetFragment:Fragment() {
     }
 
     private fun initObserver(){
-        datasetFragmentViewModel.getRequestStatus().observe(viewLifecycleOwner, {
-            if(it > 0){
+        datasetFragmentViewModel.getRequestStatus().observe(viewLifecycleOwner) {
+            if (it > 0) {
                 updateItems()
-            }else if (it == 0){
-                Snackbar.make(thisView.findViewById(R.id.datasets_recycler), "无法连接服务器！！", Snackbar.LENGTH_LONG).show()
+            } else if (it == 0) {
+                Snackbar.make(
+                    thisView.findViewById(R.id.datasets_recycler),
+                    "无法连接服务器！！",
+                    Snackbar.LENGTH_LONG
+                ).show()
             }
-        })
+        }
     }
 
     private fun updateItems(){

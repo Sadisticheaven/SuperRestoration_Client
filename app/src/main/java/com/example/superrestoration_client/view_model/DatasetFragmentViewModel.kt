@@ -5,9 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.superrestoration_client.model.Dataset
-import com.example.superrestoration_client.model.Model
 import com.example.superrestoration_client.network.DatasetRequest
-import com.example.superrestoration_client.network.ModelRequest
 import com.example.superrestoration_client.utils.Config
 import retrofit2.Call
 import retrofit2.Callback

@@ -1,19 +1,18 @@
 package com.example.superrestoration_client
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.superrestoration_client.databinding.ActivityMainBinding
-import com.example.superrestoration_client.fragment.ModelFragment
-import com.example.superrestoration_client.utils.SharePreferenceUtil
 import com.example.superrestoration_client.view_model.MainActivityShareViewModel
 import com.example.superrestoration_client.view_model.ModelFragmentViewModel
+import com.google.android.material.snackbar.Snackbar
 
 
 class MainActivity : AppCompatActivity(){
@@ -23,8 +22,22 @@ class MainActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mainActivityShareViewModel = ViewModelProvider(this)[MainActivityShareViewModel::class.java]
+        mainActivityShareViewModel.setCurrentUser(intent.getParcelableExtra("currentUser")!!)
         initView()
+        initObserver()
     }
+
+    private fun initObserver() {
+        mainActivityShareViewModel.getCurrentUser().observe(this){
+            if (it.getUserId() != -1){
+                Snackbar.make(findViewById(R.id.snackbar_container), "欢迎${it.getUserName()}！！", Snackbar.LENGTH_LONG).show()
+                Log.e(TAG, "欢迎${it.getUserName()}！！")
+                mainActivityShareViewModel.requestUserCombinations()
+                println(mainActivityShareViewModel.getCombinations())
+            }
+        }
+    }
+
     private fun initView() {
         val navHost = supportFragmentManager.findFragmentById(R.id.nav_host)
         val navController = NavHostFragment.findNavController(navHost!!)
@@ -33,16 +46,11 @@ class MainActivity : AppCompatActivity(){
     }
 
     fun addNewCombination(view: View) {
-        ModelFragment().addNewCombination()
-        view.visibility = View.GONE
-        findViewById<Button>(R.id.finish_add_combination).visibility = View.VISIBLE
-        findViewById<EditText>(R.id.combination_name).visibility = View.VISIBLE
+        mainActivityShareViewModel.setIsSelectable(true)
     }
 
     fun finishAddCombination(view: View) {
-        findViewById<Button>(R.id.add_combination).visibility = View.VISIBLE
-        view.visibility = View.GONE
-        findViewById<EditText>(R.id.combination_name).visibility = View.GONE
         mainActivityShareViewModel.addNewCombination(ModelFragmentViewModel().getNewCombinations())
+        mainActivityShareViewModel.setIsSelectable(false)
     }
 }

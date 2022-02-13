@@ -2,7 +2,6 @@ package com.example.superrestoration_client.view_model
 
 import android.content.ContentValues.TAG
 import android.util.Log
-import androidx.databinding.Bindable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.superrestoration_client.model.Combination

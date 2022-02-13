@@ -5,20 +5,14 @@
             name="modelViewModel"
             type="com.example.superrestoration_client.view_model.ModelFragmentViewModel" />
     </data>
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <Button
-                android:id="@+id/add_combination"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="新建组合"
-                android:onClick="addNewCombination"/>
+            android:orientation="horizontal"
+            android:id="@+id/edit_row">
             <EditText
                 android:id="@+id/combination_name"
                 android:layout_width="wrap_content"
@@ -34,10 +28,13 @@
                 android:visibility="gone"
                 android:onClick="finishAddCombination"/>
         </LinearLayout>
+
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/models_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/models_recycler"/>
-    </LinearLayout>
+            android:layout_below="@id/edit_row" />
+    </RelativeLayout>
+
 </layout>
 

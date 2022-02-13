@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph_model_combination"
+    app:startDestination="@id/modelFragment">
+    <fragment
+        android:id="@+id/modelFragment"
+        android:name="com.example.superrestoration_client.fragment.ModelFragment"
+        tools:layout="@layout/fragment_model" />
+    <fragment
+        android:id="@+id/combinationFragment"
+        android:name="com.example.superrestoration_client.fragment.CombinationFragment"
+        tools:layout="@layout/fragment_combination" />
+</navigation>
