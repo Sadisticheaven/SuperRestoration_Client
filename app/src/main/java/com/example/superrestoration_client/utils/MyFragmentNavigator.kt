@@ -14,12 +14,14 @@ import androidx.navigation.fragment.FragmentNavigator
 class MyFragmentNavigator(private val mContext: Context, private val mFragmentManager: FragmentManager, private val mContainerId: Int)
     : FragmentNavigator(mContext, mFragmentManager, mContainerId) {
     val TAG = "MyFragmentNavigator"
+
     override fun navigate(
         destination: Destination,
         args: Bundle?,
         navOptions: NavOptions?,
         navigatorExtras: Navigator.Extras?
     ): NavDestination? {
+
         if (mFragmentManager.isStateSaved) {
             Log.i(
                 TAG, "Ignoring navigate() call: FragmentManager has already"
@@ -54,8 +56,11 @@ class MyFragmentNavigator(private val mContext: Context, private val mFragmentMa
         var frag = mFragmentManager.findFragmentByTag(tag)
         if (mFragmentManager.fragments.size > 0) {
             for (fragment in mFragmentManager.fragments){
-                ft.hide(fragment)
+                Log.e(TAG, "${fragment.tag} == $tag?")
+//                if (fragment.tag != tag)
+                    ft.hide(fragment)
             }
+//            ft.hide(mFragmentManager.fragments[mFragmentManager.fragments.size-1])
         }
         if (frag == null){
             frag = instantiateFragment(

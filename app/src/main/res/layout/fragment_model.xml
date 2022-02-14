@@ -13,20 +13,23 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:id="@+id/edit_row">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="test"/>
             <EditText
                 android:id="@+id/combination_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@={modelViewModel.newCombinations.name}"
-                android:hint="新建组合名"
+                android:text="@={modelViewModel.newCombinationName}"
+                android:hint="@string/new_combination_name"
                 android:visibility="gone"/>
             <Button
                 android:id="@+id/finish_add_combination"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="完成"
-                android:visibility="gone"
-                android:onClick="finishAddCombination"/>
+                android:text="@string/complete"
+                android:visibility="gone"/>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

@@ -6,13 +6,17 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.superrestoration_client.databinding.ActivityMainBinding
+import com.example.superrestoration_client.fragment.*
+import com.example.superrestoration_client.utils.ViewPagerAdaptor
 import com.example.superrestoration_client.view_model.MainActivityShareViewModel
 import com.example.superrestoration_client.view_model.ModelFragmentViewModel
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.tabs.TabLayoutMediator
 
 
 class MainActivity : AppCompatActivity(){
@@ -39,18 +43,24 @@ class MainActivity : AppCompatActivity(){
     }
 
     private fun initView() {
-        val navHost = supportFragmentManager.findFragmentById(R.id.nav_host)
-        val navController = NavHostFragment.findNavController(navHost!!)
-        // 将navController与navBottom绑定
-        NavigationUI.setupWithNavController(activityMainBinding.navBottom, navController)
-    }
-
-    fun addNewCombination(view: View) {
-        mainActivityShareViewModel.setIsSelectable(true)
-    }
-
-    fun finishAddCombination(view: View) {
-        mainActivityShareViewModel.addNewCombination(ModelFragmentViewModel().getNewCombinations())
-        mainActivityShareViewModel.setIsSelectable(false)
+//        val navHost = supportFragmentManager.findFragmentById(R.id.nav_host)
+//        val navController = NavHostFragment.findNavController(navHost!!)
+//        // 将navController与navBottom绑定
+//        NavigationUI.setupWithNavController(activityMainBinding.navBottom, navController)
+        val childFragments = arrayListOf(
+            ModelCombinationFragment(), DatasetFragment(), ResultFragment(), UserFragment()
+        )
+        val vpAdaptor = ViewPagerAdaptor(childFragments, supportFragmentManager, lifecycle)
+        activityMainBinding.vpMain.adapter = vpAdaptor
+        TabLayoutMediator(activityMainBinding.navTabMain,
+            activityMainBinding.vpMain
+        ) { tab, position ->
+            when(position) {
+                0 -> tab.text = resources.getString(R.string.algorithm)
+                1 -> tab.text = resources.getString(R.string.dataset)
+                2 -> tab.text = resources.getString(R.string.result)
+                3 -> tab.text = resources.getString(R.string.user)
+            }
+        }.attach()
     }
 }

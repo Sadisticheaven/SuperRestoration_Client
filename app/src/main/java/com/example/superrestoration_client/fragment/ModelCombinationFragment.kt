@@ -22,9 +22,12 @@ import com.example.superrestoration_client.R
 import com.example.superrestoration_client.databinding.FragmentModelBinding
 import com.example.superrestoration_client.databinding.FragmentModelCombinationBinding
 import com.example.superrestoration_client.utils.ModelAdaptor
+import com.example.superrestoration_client.utils.ViewPagerAdaptor
 import com.example.superrestoration_client.view_model.MainActivityShareViewModel
 import com.example.superrestoration_client.view_model.ModelFragmentViewModel
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
 /**
  * 显示模型列表的界面
@@ -41,10 +44,24 @@ class ModelCombinationFragment: Fragment() {
     }
 
     private fun initView() {
-        val navHost = childFragmentManager.findFragmentById(R.id.navHost_modelCombination)
-        val navController = NavHostFragment.findNavController(navHost!!)
-        // 将navController与navBottom绑定
-        NavigationUI.setupWithNavController(fragmentModelCombinationBinding.navBottomModelCombination, navController)
+//        val navHost = childFragmentManager.findFragmentById(R.id.navHost_modelCombination)
+//        val navController = NavHostFragment.findNavController(navHost!!)
+//        // 将navController与navBottom绑定
+//        NavigationUI.setupWithNavController(fragmentModelCombinationBinding.navBottomModelCombination, navController)
+        val childFragments = arrayListOf<Fragment>(
+            ModelFragment(), CombinationFragment()
+        )
+        val vpAdaptor = ViewPagerAdaptor(childFragments, requireActivity().supportFragmentManager, lifecycle)
+        fragmentModelCombinationBinding.vpModelCombination.adapter = vpAdaptor
+        TabLayoutMediator(fragmentModelCombinationBinding.navTabModelCombination,
+            fragmentModelCombinationBinding.vpModelCombination
+        ) { tab, position ->
+            if (position == 0) {
+                tab.text = resources.getString(R.string.algorithm)
+            } else if (position == 1) {
+                tab.text = resources.getString(R.string.combination)
+            }
+        }.attach()
     }
 
 }

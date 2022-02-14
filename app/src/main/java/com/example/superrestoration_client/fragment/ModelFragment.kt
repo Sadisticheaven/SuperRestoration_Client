@@ -12,12 +12,17 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.example.superrestoration_client.R
 import com.example.superrestoration_client.databinding.FragmentModelBinding
+import com.example.superrestoration_client.model.Combination
 import com.example.superrestoration_client.utils.ModelAdaptor
 import com.example.superrestoration_client.view_model.MainActivityShareViewModel
 import com.example.superrestoration_client.view_model.ModelFragmentViewModel
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.fragment_combination.*
+import kotlinx.android.synthetic.main.fragment_model.*
+import java.util.ArrayList
 
 /**
  * 显示模型列表的界面
@@ -65,10 +70,9 @@ class ModelFragment:Fragment() {
 
         shareViewModel.getIsSelectable().observe(viewLifecycleOwner){
             switchItemSelectable(it)
-//            updateItems()
         }
 
-//        // 由于Fragment切换时是异步commit，因此在回调中更改按钮状态
+        // 由于Fragment切换时是异步commit，因此在回调中更改按钮状态
 //        recyclerView.viewTreeObserver.addOnDrawListener {
 //            switchItemSelectable(shareViewModel.getIsSelectable().value!!)
 //            if (shareViewModel.getIsSelectable().value!!){
@@ -140,6 +144,24 @@ class ModelFragment:Fragment() {
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val viewPager = requireActivity().findViewById<ViewPager2>(R.id.vp_model_combination)
+        finish_add_combination.setOnClickListener{
+            shareViewModel.setIsSelectable(false)
+            val models = ArrayList<Int>()
+            models.addAll(shareViewModel.getSelectedModels())
+            var newCombination = Combination()
+            newCombination.setcombinationList(models)
+            newCombination.setOwnerId(shareViewModel.getCurrentUser().value!!.getUserId())
+//            newCombination.setName(modelFragmentViewModel.getNewCombinations().value!!.getName())
+            newCombination.setName(modelFragmentViewModel.getNewCombinationName())
+
+            shareViewModel.addNewCombination(newCombination)
+            Log.i(TAG, shareViewModel.getCombinations().toString())
+            viewPager.currentItem = 1
+        }
+    }
     override fun onPause() {
         Log.e(TAG, "onPause")
         super.onPause()
