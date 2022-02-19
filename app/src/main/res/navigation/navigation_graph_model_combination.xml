@@ -11,5 +11,9 @@
     <fragment
         android:id="@+id/combinationFragment"
         android:name="com.example.superrestoration_client.fragment.CombinationFragment"
-        tools:layout="@layout/fragment_combination" />
+        tools:layout="@layout/fragment_combination" >
+        <action
+            android:id="@+id/action_combinationFragment_to_modelFragment"
+            app:destination="@id/modelFragment" />
+    </fragment>
 </navigation>

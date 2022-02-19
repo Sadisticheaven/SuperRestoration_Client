@@ -7,6 +7,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.superrestoration_client.databinding.ActivityMainBinding
@@ -45,9 +46,10 @@ class MainActivity : AppCompatActivity(){
         NavigationUI.setupWithNavController(activityMainBinding.navBottom, navController)
     }
 
-    fun addNewCombination(view: View) {
-        mainActivityShareViewModel.setIsSelectable(true)
-    }
+//    fun addNewCombination(view: View) {
+//        mainActivityShareViewModel.setIsSelectable(true)
+//
+//    }
 
     fun finishAddCombination(view: View) {
         mainActivityShareViewModel.addNewCombination(ModelFragmentViewModel().getNewCombinations())
