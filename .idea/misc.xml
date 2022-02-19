@@ -3,21 +3,37 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Document/AndroidProj/SuperRestoration_Client/app/src/main/res/drawable/login_panel.xml" value="0.1295" />
+        <entry key="..\:/Document/AndroidProj/SuperRestoration_Client/app/src/main/res/drawable/rounded_rectangle.xml" value="0.1295" />
+        <entry key="..\:/Document/AndroidProj/SuperRestoration_Client/app/src/main/res/drawable/rounded_rectangle2.xml" value="0.1295" />
+        <entry key="..\:/Document/AndroidProj/SuperRestoration_Client/app/src/main/res/drawable/rounded_rectangle_pressed.xml" value="0.1" />
+        <entry key="..\:/Document/AndroidProj/SuperRestoration_Client/app/src/main/res/drawable/shape_circle.xml" value="0.1295" />
+        <entry key="..\:/Document/AndroidProj/SuperRestoration_Client/app/src/main/res/layout/activity_login.xml" value="0.22" />
+        <entry key="..\:/Document/AndroidProj/SuperRestoration_Client/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
+        <entry key="..\:/Document/AndroidProj/SuperRestoration_Client/app/src/main/res/layout/fragment_combination.xml" value="0.20606884057971014" />
+        <entry key="..\:/Document/AndroidProj/SuperRestoration_Client/app/src/main/res/layout/fragment_dataset.xml" value="0.22604166666666667" />
+        <entry key="..\:/Document/AndroidProj/SuperRestoration_Client/app/src/main/res/layout/fragment_dataset_selected.xml" value="0.22" />
+        <entry key="..\:/Document/AndroidProj/SuperRestoration_Client/app/src/main/res/layout/fragment_image_restoration.xml" value="0.22604166666666667" />
+        <entry key="..\:/Document/AndroidProj/SuperRestoration_Client/app/src/main/res/layout/fragment_model.xml" value="0.13999999999999999" />
+        <entry key="..\:/Document/AndroidProj/SuperRestoration_Client/app/src/main/res/layout/fragment_model_combination.xml" value="0.16666666666666666" />
+        <entry key="..\:/Document/AndroidProj/SuperRestoration_Client/app/src/main/res/layout/fragment_model_selected.xml" value="0.1609375" />
+        <entry key="..\:/Document/AndroidProj/SuperRestoration_Client/app/src/main/res/layout/fragment_result.xml" value="0.11548913043478261" />
+        <entry key="..\:/Document/AndroidProj/SuperRestoration_Client/app/src/main/res/layout/fragment_result2.xml" value="0.1609375" />
+        <entry key="..\:/Document/AndroidProj/SuperRestoration_Client/app/src/main/res/layout/fragment_user.xml" value="0.14635416666666667" />
+        <entry key="..\:/Document/AndroidProj/SuperRestoration_Client/app/src/main/res/layout/ryc_item_dataset.xml" value="0.20606884057971014" />
+        <entry key="..\:/Document/AndroidProj/SuperRestoration_Client/app/src/main/res/layout/ryc_item_history.xml" value="0.20606884057971014" />
+        <entry key="..\:/Document/AndroidProj/SuperRestoration_Client/app/src/main/res/layout/ryc_item_model.xml" value="0.1609375" />
+        <entry key="..\:/Document/AndroidProj/SuperRestoration_Client/app/src/main/res/menu/menu.xml" value="0.22604166666666667" />
+        <entry key="..\:/Document/AndroidProj/SuperRestoration_Client/app/src/main/res/menu/menu_model_combination.xml" value="0.22604166666666667" />
         <entry key="..\:/Document/SuperRestoration_Client/app/src/main/res/drawable/btn_color_selector.xml" value="0.19166666666666668" />
         <entry key="..\:/Document/SuperRestoration_Client/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.16298527443105756" />
-        <entry key="..\:/Document/SuperRestoration_Client/app/src/main/res/layout-w936dp/fragment_dataset.xml" value="0.1" />
         <entry key="..\:/Document/SuperRestoration_Client/app/src/main/res/layout/activity_login.xml" value="0.176" />
         <entry key="..\:/Document/SuperRestoration_Client/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Document/SuperRestoration_Client/app/src/main/res/layout/fragment_a.xml" value="0.2" />
         <entry key="..\:/Document/SuperRestoration_Client/app/src/main/res/layout/fragment_b.xml" value="0.4" />
-        <entry key="..\:/Document/SuperRestoration_Client/app/src/main/res/layout/fragment_combination.xml" value="0.19270833333333334" />
-        <entry key="..\:/Document/SuperRestoration_Client/app/src/main/res/layout/fragment_dataset.xml" value="0.25364583333333335" />
         <entry key="..\:/Document/SuperRestoration_Client/app/src/main/res/layout/fragment_model.xml" value="0.2" />
-        <entry key="..\:/Document/SuperRestoration_Client/app/src/main/res/layout/fragment_model_combination.xml" value="0.19270833333333334" />
-        <entry key="..\:/Document/SuperRestoration_Client/app/src/main/res/layout/ryc_item_dataset.xml" value="0.25364583333333335" />
-        <entry key="..\:/Document/SuperRestoration_Client/app/src/main/res/layout/ryc_item_model.xml" value="0.176" />
+        <entry key="..\:/Document/SuperRestoration_Client/app/src/main/res/layout/ryc_item_model.xml" value="0.1296875" />
         <entry key="..\:/Document/SuperRestoration_Client/app/src/main/res/menu/menu.xml" value="0.1296875" />
-        <entry key="..\:/Document/SuperRestoration_Client/app/src/main/res/menu/menu_model_combination.xml" value="0.1296875" />
       </map>
     </option>
   </component>

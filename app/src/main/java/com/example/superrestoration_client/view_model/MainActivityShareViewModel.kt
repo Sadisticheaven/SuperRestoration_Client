@@ -10,6 +10,7 @@ import com.example.superrestoration_client.model.Model
 import com.example.superrestoration_client.model.User
 import com.example.superrestoration_client.network.CombinationRequest
 import com.example.superrestoration_client.utils.Config
+import com.example.superrestoration_client.utils.FragmentNotify
 import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,27 +20,29 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivityShareViewModel : ViewModel() {
     private var currentUser: MutableLiveData<User> = MutableLiveData()
+
     private var modelList: MutableLiveData<ArrayList<Model>> = MutableLiveData()
-    private var selectedModels: MutableLiveData<MutableSet<Int>> = MutableLiveData()
+    private var selectedModelsIndex: MutableLiveData<MutableSet<Int>> = MutableLiveData()
 
     private var datasetList: MutableLiveData<ArrayList<Dataset>> = MutableLiveData()
-    private var selectedDatasets: MutableLiveData<MutableSet<Int>> = MutableLiveData()
+    private var selectedDatasetsIndex: MutableLiveData<MutableSet<Int>> = MutableLiveData()
 
     private var userCombinationList: MutableLiveData<HashMap<String, Combination>> = MutableLiveData()
     private var isSelectable: MutableLiveData<Boolean> = MutableLiveData()
-    private var fromWhere: MutableLiveData<Int> = MutableLiveData()
-    private var requestStatus: MutableLiveData<Int>  = MutableLiveData()
+    private var requestStatus: MutableLiveData<Int> = MutableLiveData()
+
+    private var notify: MutableLiveData<FragmentNotify> = MutableLiveData()
 
     init {
         currentUser.value = User()
         modelList.value = ArrayList()
-        selectedModels.value = mutableSetOf()
+        selectedModelsIndex.value = mutableSetOf()
         datasetList.value = ArrayList()
-        selectedDatasets.value = mutableSetOf()
+        selectedDatasetsIndex.value = mutableSetOf()
         userCombinationList.value = hashMapOf()
         requestStatus.value = -1
         isSelectable.value = false
-        fromWhere.value = 0
+        notify.value = FragmentNotify(Config.fragmentTag["MainActivity"]!!, Config.fragmentTag["MainActivity"]!!)
     }
 
     fun requestUserCombinations(){
@@ -92,14 +95,16 @@ class MainActivityShareViewModel : ViewModel() {
     fun setCurrentUser(value: User){ currentUser.value = value }
     fun getCurrentUser(): MutableLiveData<User> { return currentUser }
 
-    fun addModel(position: Int): Boolean { return selectedModels.value!!.add(position) }
-    fun addDataset(position: Int): Boolean { return selectedDatasets.value!!.add(position) }
+    fun addModel(position: Int): Boolean { return selectedModelsIndex.value!!.add(position) }
+    fun addDataset(position: Int): Boolean { return selectedDatasetsIndex.value!!.add(position) }
 
-    fun removeModel(position: Int): Boolean { return selectedModels.value!!.remove(position) }
-    fun removeDataset(position: Int): Boolean { return selectedDatasets.value!!.remove(position) }
+    fun removeModel(position: Int): Boolean { return selectedModelsIndex.value!!.remove(position) }
+    fun removeDataset(position: Int): Boolean { return selectedDatasetsIndex.value!!.remove(position) }
 
-    fun getSelectedModels(): MutableSet<Int> { return selectedModels.value!! }
-    fun getSelectedDatasets(): MutableSet<Int> { return selectedDatasets.value!! }
+    fun getSelectedModelsIndex(): MutableSet<Int> { return selectedModelsIndex.value!! }
+    fun setSelectedModelsIndex(value: MutableSet<Int>) { selectedModelsIndex.value = value }
+    fun getSelectedDatasetsIndex(): MutableSet<Int> { return selectedDatasetsIndex.value!! }
+    fun setSelectedDatasetsIndex(value: MutableSet<Int>) { selectedDatasetsIndex.value = value }
 
     fun getModelList(): MutableLiveData<ArrayList<Model>> { return modelList }
     fun getDatasetList(): MutableLiveData<ArrayList<Dataset>> { return datasetList }
@@ -107,4 +112,6 @@ class MainActivityShareViewModel : ViewModel() {
     fun getCombinations(): HashMap<String, Combination> { return userCombinationList.value!! }
     fun getIsSelectable(): MutableLiveData<Boolean> { return isSelectable }
     fun setIsSelectable(value: Boolean) { isSelectable.value = value }
+    fun getNotify(): MutableLiveData<FragmentNotify> { return notify }
+    fun setNotify(value: FragmentNotify) { notify.value = value }
 }

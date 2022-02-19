@@ -2,24 +2,28 @@ package com.example.superrestoration_client.view_model
 
 import android.content.ContentValues.TAG
 import android.util.Log
+import androidx.databinding.Bindable
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.superrestoration_client.model.Combination
 import com.example.superrestoration_client.model.Model
 import com.example.superrestoration_client.network.ModelRequest
 import com.example.superrestoration_client.utils.Config
+import com.example.superrestoration_client.utils.ObservableViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ModelFragmentViewModel: ViewModel() {
+class ModelFragmentViewModel: ObservableViewModel() {
     private var requestStatus: MutableLiveData<Int> = MutableLiveData()
-    private var newCombination: MutableLiveData<Combination> = MutableLiveData()
+//    private var newCombination: MutableLiveData<Combination> = MutableLiveData()
+    @Bindable
+    private var newCombinationName: String
+
     init {
         requestStatus.value = -1
-        newCombination.value = Combination()
+//        newCombination.value = Combination()
+        newCombinationName = ""
     }
 
     fun loadModels(shareViewModel: MainActivityShareViewModel) {
@@ -48,6 +52,8 @@ class ModelFragmentViewModel: ViewModel() {
     }
 
     fun getRequestStatus(): MutableLiveData<Int> { return requestStatus }
-    fun getNewCombinations(): Combination { return newCombination.value!! }
+//    fun getNewCombinations(): MutableLiveData<Combination> { return newCombination }
+    fun getNewCombinationName(): String { return newCombinationName }
+    fun setNewCombinationName(value: String){ newCombinationName = value}
 
 }

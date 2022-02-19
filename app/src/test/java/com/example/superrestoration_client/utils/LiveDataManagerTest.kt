@@ -13,10 +13,12 @@ class LiveDataManagerTest{
     }
 
     @Test
-    fun fortest(){
-        val len = 2
-        for (idx in 1..len){
-            println(idx)
-        }
+    fun substract(){
+        val set1 = mutableSetOf(1, 3 ,2)
+        val set2 = mutableSetOf(1, 2)
+        set1.remove(2)
+        println(set1)
+        println(set2)
+        println(set1.subtract(set2))
     }
 }

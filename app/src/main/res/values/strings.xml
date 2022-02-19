@@ -4,4 +4,17 @@
     <string name="user_name">用户名</string>
     <string name="password">密码</string>
     <string name="login">登录</string>
+    <string name="algorithm">算法</string>
+    <string name="combination">组合</string>
+    <string name="dataset">数据集</string>
+    <string name="result">结果</string>
+    <string name="user">用户</string>
+    <string name="new_combination">新建组合</string>
+    <string name="complete">完成</string>
+    <string name="new_combination_name">新建组合名</string>
+    <string name="image_restore">图片恢复</string>
+    <string name="run">执行</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_algorithm">添加算法</string>
+    <string name="add_dataset">添加数据集</string>
 </resources>

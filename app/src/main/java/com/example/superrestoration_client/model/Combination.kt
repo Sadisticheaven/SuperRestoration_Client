@@ -27,4 +27,11 @@ class Combination: BaseObservable() {
     fun getId(): Int? { return combinationId }
     fun setId(value: Int) { combinationId = value }
 
+    override fun toString(): String {
+        return "combinationId: $combinationId, combinationName:$combinationName,\n" +
+                "combinationList:$combinationList,\n" +
+                "combinationOwnerId:$combinationOwnerId,\n" +
+                "combinationType:$combinationType。\n"
+    }
+
 }

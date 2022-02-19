@@ -16,8 +16,8 @@
         android:name="com.example.superrestoration_client.fragment.DatasetFragment"
         tools:layout="@layout/fragment_dataset" />
     <fragment android:id="@+id/resultFragment"
-        android:name="com.example.superrestoration_client.fragment.ResultFragment"
-        tools:layout="@layout/fragment_result" />
+        android:name="com.example.superrestoration_client.fragment.ImageRestorationFragment"
+        tools:layout="@layout/fragment_image_restoration" />
     <fragment android:id="@+id/userFragment"
         android:name="com.example.superrestoration_client.fragment.UserFragment"
         tools:layout="@layout/fragment_user" />

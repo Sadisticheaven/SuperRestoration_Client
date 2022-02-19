@@ -12,8 +12,8 @@ import com.example.superrestoration_client.model.Dataset
 /**
  * 负责将得到的 model和布局中的 item关联起来，以便在 Recycler View 中显示
  */
-class DatasetAdaptor(private var datasets: List<Dataset>, private var context: Context) : RecyclerView.Adapter<DatasetAdaptor.ViewHolder>() {
-    class ViewHolder(itemView: View, onItemClickListener: OnItemClickListener) : RecyclerView.ViewHolder(itemView) {
+class DatasetAdaptor(private var datasets: ArrayList<Dataset>, private var context: Context) : RecyclerView.Adapter<DatasetAdaptor.ViewHolder>() {
+    class ViewHolder(itemView: View, onItemClickListener: OnItemClickListener, itemVisibility: ItemVisibility) : RecyclerView.ViewHolder(itemView) {
         var textView: TextView = itemView.findViewById(R.id.dataset_text)
         private var addButton: ImageButton = itemView.findViewById(R.id.add_dataset_to_list)
         private var removeButton: ImageButton = itemView.findViewById(R.id.remove_dataset_from_list)
@@ -29,12 +29,15 @@ class DatasetAdaptor(private var datasets: List<Dataset>, private var context: C
                 if (position != RecyclerView.NO_POSITION)
                     onItemClickListener.onRemoveButtonClick(it, position)
             }
+
+            addButton.visibility = itemVisibility.addButton
+            removeButton.visibility = itemVisibility.removeButton
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = View.inflate(context, R.layout.ryc_item_dataset, null)
-        return ViewHolder(view, mOnItemClickListener)
+        return ViewHolder(view, mOnItemClickListener, mItemVisibility)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -55,5 +58,37 @@ class DatasetAdaptor(private var datasets: List<Dataset>, private var context: C
 
     fun setOnItemClickListener(clickListener: OnItemClickListener){
         this.mOnItemClickListener = clickListener
+    }
+
+    class ItemVisibility{
+        var addButton: Int
+        var removeButton: Int
+        constructor(){
+            addButton = View.GONE
+            removeButton= View.GONE
+        }
+        constructor(addButtonVisibility: Int, removeButtonVisibility: Int){
+            addButton = addButtonVisibility
+            removeButton = removeButtonVisibility
+        }
+    }
+
+    private var mItemVisibility: ItemVisibility = ItemVisibility()
+
+    fun setItemVisibility(itemVisibility: ItemVisibility){
+        this.mItemVisibility = itemVisibility
+    }
+
+    fun addItem(dataset: Dataset){
+        datasets.add(dataset)
+        //添加动画
+        notifyItemInserted(itemCount)
+    }
+
+    fun removeItem(position: Int){
+        datasets.removeAt(position)
+        //删除动画
+        notifyItemRemoved(position)
+        notifyDataSetChanged()
     }
 }

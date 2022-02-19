@@ -6,7 +6,9 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.superrestoration_client.model.User
+import com.example.superrestoration_client.network.MyNetwork
 import com.example.superrestoration_client.network.UserRequest
+import com.example.superrestoration_client.utils.Common
 import com.example.superrestoration_client.utils.Config
 import com.example.superrestoration_client.utils.LiveDataManager
 import com.example.superrestoration_client.utils.SharePreferenceUtil
@@ -49,10 +51,7 @@ class LoginActivityViewModel: ViewModel() {
         val userName = user.value!!.getUserName()
         val userPassword = user.value!!.getUserPwd()
 
-        val retrofit = Retrofit.Builder().baseUrl(Config.baseUrl)
-            .addConverterFactory(GsonConverterFactory.create())// 自动转换
-            .build()
-        val httpBinService = retrofit.create(UserRequest::class.java)
+        val httpBinService = MyNetwork().getHttpService(UserRequest::class.java)
         val call: Call<User> = httpBinService.userLogin(userName, userPassword)
         call.enqueue(object : Callback<User>{
             override fun onResponse(call: Call<User>, response: Response<User>) {

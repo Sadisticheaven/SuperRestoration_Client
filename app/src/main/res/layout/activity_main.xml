@@ -2,32 +2,39 @@
 <layout>
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
-
-        <fragment
-            android:id="@+id/nav_host"
-            android:name="com.example.superrestoration_client.utils.MyNavHostFragment"
+        android:layout_height="match_parent">
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
-            app:defaultNavHost="true"
-            app:navGraph="@navigation/navigation_graph"
-            android:layout_centerInParent="true"/>
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/nav_bottom"
+            android:layout_above="@id/nav_tab_main"/>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/nav_tab_main"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:background="#E1DFDF"
-            app:menu="@menu/menu"
-            app:labelVisibilityMode="labeled"/>
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/algorithm" />
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dataset" />
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/image_restore" />
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/user" />
+        </com.google.android.material.tabs.TabLayout>
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/snackbar_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/nav_bottom"/>
+            android:layout_above="@id/nav_tab_main"/>
     </RelativeLayout>
 </layout>

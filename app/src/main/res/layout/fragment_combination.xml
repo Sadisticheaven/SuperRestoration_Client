@@ -17,8 +17,7 @@
                 android:id="@+id/add_combination"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="新建组合"
-                android:onClick="addNewCombination"/>
+                android:text="@string/new_combination"/>
         </LinearLayout>
 <!--        <androidx.recyclerview.widget.RecyclerView-->
 <!--            android:layout_width="match_parent"-->
