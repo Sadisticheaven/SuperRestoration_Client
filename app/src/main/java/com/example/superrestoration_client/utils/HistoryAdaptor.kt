@@ -17,6 +17,11 @@ class HistoryAdaptor(private var histories: ArrayList<ProcessHistory>, private v
     class ViewHolder(itemView: View, onItemClickListener: OnItemClickListener, itemVisibility: ItemVisibility) : RecyclerView.ViewHolder(itemView) {
         var textView: TextView = itemView.findViewById(R.id.text)
         init {
+            itemView.setOnClickListener{
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION)
+                    onItemClickListener.onItemClick(it, position)
+            }
         }
     }
 
@@ -39,8 +44,9 @@ class HistoryAdaptor(private var histories: ArrayList<ProcessHistory>, private v
 
     // 44-52:为Item中的控件添加回调
     interface OnItemClickListener{
-        fun onAddButtonClick(view: View, position: Int)
-        fun onRemoveButtonClick(view: View, position: Int)
+//        fun onAddButtonClick(view: View, position: Int)
+//        fun onRemoveButtonClick(view: View, position: Int)
+        fun onItemClick(view: View, position: Int)
     }
 
     private lateinit var mOnItemClickListener: OnItemClickListener

@@ -32,7 +32,7 @@ class ImageRestorationFragment : Fragment() {
     }
 
     private fun initView() {
-        val childFragments = arrayListOf(ModelSelectedFragment(), DatasetSelectedFragment(), ResultFragment())
+        val childFragments = arrayListOf(ModelSelectedFragment(), DatasetSelectedFragment(), HistoryFragment())
         val vpAdaptor = ViewPagerAdaptor(childFragments, requireActivity().supportFragmentManager, lifecycle)
         fragmentImageRestorationBinding.vpImageRestoration.adapter = vpAdaptor
         TabLayoutMediator(fragmentImageRestorationBinding.navTabImageRestoration,

@@ -1,10 +1,12 @@
 package com.example.superrestoration_client.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.NumberPicker
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.superrestoration_client.R
 import com.example.superrestoration_client.databinding.FragmentResultBinding
+import com.example.superrestoration_client.utils.Config
+import com.example.superrestoration_client.utils.FragmentNotify
 import com.example.superrestoration_client.utils.HistoryAdaptor
 import com.example.superrestoration_client.view_model.ImageRestorationViewModel
 import com.example.superrestoration_client.view_model.MainActivityShareViewModel
@@ -26,6 +30,8 @@ class ResultFragment : Fragment() {
     private lateinit var refreshLayout: SwipeRefreshLayout
     private lateinit var recyclerAdaptor: HistoryAdaptor
     private lateinit var fragmentResultBinding: FragmentResultBinding
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,16 +61,16 @@ class ResultFragment : Fragment() {
                     "刷新成功", Snackbar.LENGTH_LONG).show()
             }
         }
+
     }
 
     private fun updateItems(){
         recyclerAdaptor = HistoryAdaptor(imageRestorationViewModel.getHistory().value!!, this.requireContext())
         // 实现Item中控件的回调
         recyclerAdaptor.setOnItemClickListener(object: HistoryAdaptor.OnItemClickListener{
-            override fun onAddButtonClick(view: View, position: Int) {
-            }
-
-            override fun onRemoveButtonClick(view: View, position: Int) {
+            override fun onItemClick(view: View, position: Int) {
+                shareViewModel.getNotify().postValue(FragmentNotify(Config.fragmentTag[TAG]!!, Config.fragmentTag["PictureFragment"]!!))
+                Log.e(TAG, "click")
             }
         })
         recyclerView.adapter = recyclerAdaptor
