@@ -28,7 +28,9 @@ class DatasetFragmentViewModel: ViewModel() {
         call.enqueue(object : Callback<List<Dataset>> {
             override fun onResponse(call: Call<List<Dataset>>, response: Response<List<Dataset>>) {
                 if (response.isSuccessful){
-                    val res = response.body() as ArrayList<Dataset>
+                    var res = response.body() as ArrayList<Dataset>
+                    if (res == null)
+                        res = arrayListOf()
                     // 此处输出的modelList等值是更新前的值，在观察者回调中输出的才是更新后的
                     shareViewModel.getDatasetList().postValue(res)
                     requestStatus.postValue(1)

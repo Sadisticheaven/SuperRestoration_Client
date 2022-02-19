@@ -56,9 +56,11 @@ class MainActivityShareViewModel : ViewModel() {
                 call: Call<List<Combination>>,
                 response: Response<List<Combination>>
             ) {
-                val res: List<Combination> = response.body()!!
-                for (combination in res){
-                    userCombinationList.value!![combination.getName()] = combination
+                val res =  response.body()
+                if (res != null){
+                    for (combination in res){
+                        userCombinationList.value!![combination.getName()] = combination
+                    }
                 }
                 requestStatus.postValue(1)
             }

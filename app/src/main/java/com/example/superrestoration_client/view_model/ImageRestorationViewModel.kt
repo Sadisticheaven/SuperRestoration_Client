@@ -80,7 +80,9 @@ class ImageRestorationViewModel: ViewModel() {
                 call: Call<ArrayList<ProcessHistory>>,
                 response: Response<ArrayList<ProcessHistory>>
             ) {
-                val res: ArrayList<ProcessHistory> = response.body()!!
+                var res = response.body()
+                if (res == null)
+                    res = arrayListOf()
                 history.postValue(res)
                 historyRequestCode.postValue(1)
             }

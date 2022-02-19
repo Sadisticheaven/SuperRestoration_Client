@@ -55,12 +55,12 @@ class LoginActivityViewModel: ViewModel() {
         val call: Call<User> = httpBinService.userLogin(userName, userPassword)
         call.enqueue(object : Callback<User>{
             override fun onResponse(call: Call<User>, response: Response<User>) {
-                val res: User = response.body()!!
-                if (res.getUserId() > 0){
+                val res: User? = response.body()
+                if (res == null)
+                    loginStatus.postValue(1)
+                else{
                     user.postValue(res)
                     loginStatus.postValue(2)
-                }else{
-                    loginStatus.postValue(1)
                 }
             }
             override fun onFailure(call: Call<User>, t: Throwable) {

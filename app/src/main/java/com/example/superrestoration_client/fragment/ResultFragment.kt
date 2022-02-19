@@ -12,10 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.superrestoration_client.R
 import com.example.superrestoration_client.databinding.FragmentResultBinding
-import com.example.superrestoration_client.model.Model
-import com.example.superrestoration_client.model.ProcessHistory
 import com.example.superrestoration_client.utils.HistoryAdaptor
-import com.example.superrestoration_client.utils.ModelAdaptor
 import com.example.superrestoration_client.view_model.ImageRestorationViewModel
 import com.example.superrestoration_client.view_model.MainActivityShareViewModel
 import com.google.android.material.snackbar.Snackbar

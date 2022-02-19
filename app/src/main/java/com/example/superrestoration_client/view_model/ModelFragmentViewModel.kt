@@ -35,7 +35,9 @@ class ModelFragmentViewModel: ObservableViewModel() {
         call.enqueue(object : Callback<List<Model>> {
             override fun onResponse(call: Call<List<Model>>, response: Response<List<Model>>) {
                 if (response.isSuccessful){
-                    val res = response.body() as ArrayList<Model>
+                    var res = response.body() as ArrayList<Model>
+                    if (res == null)
+                        res = arrayListOf()
                     // 此处输出的modelList等值是更新前的值，在观察者回调中输出的才是更新后的
                     shareViewModel.getModelList().postValue(res)
                     requestStatus.postValue(1)
