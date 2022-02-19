@@ -3,18 +3,15 @@ package com.example.superrestoration_client
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
 import com.example.superrestoration_client.databinding.ActivityMainBinding
 import com.example.superrestoration_client.fragment.*
+import com.example.superrestoration_client.utils.Config
 import com.example.superrestoration_client.utils.ViewPagerAdaptor
+import com.example.superrestoration_client.view_model.ImageRestorationViewModel
 import com.example.superrestoration_client.view_model.MainActivityShareViewModel
-import com.example.superrestoration_client.view_model.ModelFragmentViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -22,11 +19,16 @@ import com.google.android.material.tabs.TabLayoutMediator
 class MainActivity : AppCompatActivity(){
     private lateinit var activityMainBinding: ActivityMainBinding
     private lateinit var mainActivityShareViewModel: MainActivityShareViewModel
+    private lateinit var imageRestorationViewModel: ImageRestorationViewModel
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mainActivityShareViewModel = ViewModelProvider(this)[MainActivityShareViewModel::class.java]
         mainActivityShareViewModel.setCurrentUser(intent.getParcelableExtra("currentUser")!!)
+        imageRestorationViewModel = ViewModelProvider(this)[ImageRestorationViewModel::class.java]
+
         initView()
         initObserver()
     }
@@ -40,6 +42,16 @@ class MainActivity : AppCompatActivity(){
                 println(mainActivityShareViewModel.getCombinations())
             }
         }
+        // jump to target fragment
+        mainActivityShareViewModel.getNotify().observe(this){
+            when(it.to){
+                Config.fragmentTag["ModelFragment"] -> activityMainBinding.vpMain.currentItem = 0
+                Config.fragmentTag["CombinationFragment"] -> activityMainBinding.vpMain.currentItem = 0
+                Config.fragmentTag["DatasetFragment"] -> activityMainBinding.vpMain.currentItem = 1
+                Config.fragmentTag["ModelSelectedFragment"] -> activityMainBinding.vpMain.currentItem = 2
+                Config.fragmentTag["DatasetSelectedFragment"] -> activityMainBinding.vpMain.currentItem = 2
+            }
+        }
     }
 
     private fun initView() {
@@ -48,7 +60,7 @@ class MainActivity : AppCompatActivity(){
 //        // 将navController与navBottom绑定
 //        NavigationUI.setupWithNavController(activityMainBinding.navBottom, navController)
         val childFragments = arrayListOf(
-            ModelCombinationFragment(), DatasetFragment(), ResultFragment(), UserFragment()
+            ModelCombinationFragment(), DatasetFragment(), ImageRestorationFragment(), UserFragment()
         )
         val vpAdaptor = ViewPagerAdaptor(childFragments, supportFragmentManager, lifecycle)
         activityMainBinding.vpMain.adapter = vpAdaptor
@@ -58,7 +70,7 @@ class MainActivity : AppCompatActivity(){
             when(position) {
                 0 -> tab.text = resources.getString(R.string.algorithm)
                 1 -> tab.text = resources.getString(R.string.dataset)
-                2 -> tab.text = resources.getString(R.string.result)
+                2 -> tab.text = resources.getString(R.string.image_restore)
                 3 -> tab.text = resources.getString(R.string.user)
             }
         }.attach()

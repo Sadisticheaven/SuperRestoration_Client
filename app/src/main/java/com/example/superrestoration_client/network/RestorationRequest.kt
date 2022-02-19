@@ -3,7 +3,7 @@ package com.example.superrestoration_client.network
 import retrofit2.Call
 import retrofit2.http.*
 
-interface ProcessRequest {
+interface RestorationRequest {
     @POST("process/run")
     @FormUrlEncoded
     fun runModelsOnDatasets(@Field("userId") userId:Int,

@@ -10,9 +10,11 @@ class Model: BaseObservable() {
     private var paramsPath: String = ""
     private var modelDescription: String = ""
     private var introPagePath: String = ""
+    private var modelScale: Int = 1
 
     override fun toString(): String {
         return "modelId: $modelId, modelName:$modelName,\n" +
+                "modelScale:$modelScale,\n" +
                 "archPath:$archPath,\n" +
                 "paramsPath:$paramsPath,\n" +
                 "modelDescription:$modelDescription,\n" +
@@ -28,6 +30,9 @@ class Model: BaseObservable() {
     fun getModelName(): String { return modelName }
 
     fun setModelName(value: String){ modelName = value }
+
+    @Bindable
+    fun getModelScale(): Int { return modelScale }
 
     @Bindable
     fun getArchPath(): String { return archPath }

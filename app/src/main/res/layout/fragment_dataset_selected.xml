@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragment.DatasetSelectedFragment">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/add_datasets_or_combinations"
+            android:text="@string/add_dataset"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ryc_selected_datasets"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/add_datasets_or_combinations"/>
+    </RelativeLayout>
+</layout>

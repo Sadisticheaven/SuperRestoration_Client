@@ -8,44 +8,33 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.superrestoration_client.R
 import com.example.superrestoration_client.model.Model
+import com.example.superrestoration_client.model.ProcessHistory
 
 /**
  * 负责将得到的 model和布局中的 item关联起来，以便在 Recycler View 中显示
  */
-class ModelAdaptor(private var models: ArrayList<Model>, private var context: Context) : RecyclerView.Adapter<ModelAdaptor.ViewHolder>() {
+class HistoryAdaptor(private var histories: ArrayList<ProcessHistory>, private var context: Context) : RecyclerView.Adapter<HistoryAdaptor.ViewHolder>() {
     class ViewHolder(itemView: View, onItemClickListener: OnItemClickListener, itemVisibility: ItemVisibility) : RecyclerView.ViewHolder(itemView) {
         var textView: TextView = itemView.findViewById(R.id.text)
-        private var addButton: ImageButton = itemView.findViewById(R.id.add_model_to_list)
-        private var removeButton: ImageButton = itemView.findViewById(R.id.remove_model_from_list)
         init {
-            // 为item中控件添加回调
-            addButton.setOnClickListener {
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION)
-                    onItemClickListener.onAddButtonClick(it, position)
-            }
-            removeButton.setOnClickListener {
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION)
-                    onItemClickListener.onRemoveButtonClick(it, position)
-            }
-
-            addButton.visibility = itemVisibility.addButton
-            removeButton.visibility = itemVisibility.removeButton
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = View.inflate(context, R.layout.ryc_item_model, null)
+        val view = View.inflate(context, R.layout.ryc_item_history, null)
         return ViewHolder(view, mOnItemClickListener, mItemVisibility)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.textView.text = models[position].getModelName() + " x" + models[position].getModelScale().toString()
+        val time = histories[position].getCommitTime().split('_')
+        val ymd = time[0].split('-')
+        val hms = time[1].split('-')
+        (ymd[0] + "年" + ymd[1] + "月" + ymd[2] + "日" +
+                hms[0] + "时" + hms[1] + "分" + hms[2] + "秒").also { holder.textView.text = it }
     }
 
     override fun getItemCount(): Int {
-        return models.size
+        return histories.size
     }
 
     // 44-52:为Item中的控件添加回调
@@ -79,16 +68,20 @@ class ModelAdaptor(private var models: ArrayList<Model>, private var context: Co
         this.mItemVisibility = itemVisibility
     }
 
-    fun addItem(model: Model){
-        models.add(model)
+    fun addItem(processHistory: ProcessHistory){
+        histories.add(processHistory)
         //添加动画
         notifyItemInserted(itemCount)
     }
 
     fun removeItem(position: Int){
-        models.removeAt(position)
+        histories.removeAt(position)
         //删除动画
         notifyItemRemoved(position)
+        refresh()
+    }
+
+    fun refresh(){
         notifyDataSetChanged()
     }
 }

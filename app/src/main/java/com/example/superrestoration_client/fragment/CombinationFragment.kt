@@ -7,14 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.Navigation
-import androidx.viewpager2.widget.ViewPager2
 import com.example.superrestoration_client.R
+import com.example.superrestoration_client.utils.Config
+import com.example.superrestoration_client.utils.FragmentNotify
 import com.example.superrestoration_client.view_model.MainActivityShareViewModel
 import kotlinx.android.synthetic.main.fragment_combination.*
 
 class CombinationFragment: Fragment() {
-    val TAG = "CombinationFragment"
+    private val TAG = "CombinationFragment"
     private lateinit var thisView: View
     private val shareViewModel: MainActivityShareViewModel by activityViewModels()
     override fun onCreateView(
@@ -25,10 +25,10 @@ class CombinationFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val viewPager = requireActivity().findViewById<ViewPager2>(R.id.vp_model_combination)
         add_combination.setOnClickListener{
-            shareViewModel.setIsSelectable(true)
-            viewPager.currentItem = 0
+            shareViewModel.setSelectedModelsIndex(mutableSetOf())
+            shareViewModel.getNotify().postValue(
+                FragmentNotify(Config.fragmentTag[TAG]!!, Config.fragmentTag["ModelFragment"]!!))
         }
     }
     override fun onPause() {

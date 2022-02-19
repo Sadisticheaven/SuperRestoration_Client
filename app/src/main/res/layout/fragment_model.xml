@@ -13,10 +13,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:id="@+id/edit_row">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="test"/>
             <EditText
                 android:id="@+id/combination_name"
                 android:layout_width="wrap_content"
@@ -25,18 +21,23 @@
                 android:hint="@string/new_combination_name"
                 android:visibility="gone"/>
             <Button
-                android:id="@+id/finish_add_combination"
+                android:id="@+id/add_model_finish"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/complete"
                 android:visibility="gone"/>
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/models_recycler"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/edit_row" />
+            android:layout_below="@id/edit_row" >
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_models"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
     </RelativeLayout>
 
 </layout>

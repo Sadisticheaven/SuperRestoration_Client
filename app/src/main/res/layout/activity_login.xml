@@ -11,33 +11,63 @@
     <RelativeLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:background="@drawable/pic_login">
+        android:background="@drawable/pic_login_day">
+        <RelativeLayout
+            android:id="@+id/login_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="100dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <EditText
+                        android:id="@+id/edit_name"
+                        android:layout_width="300dp"
+                        android:layout_height="50dp"
+                        android:layout_above="@id/edit_pwd"
+                        android:layout_centerInParent="true"
+                        android:hint="@string/user_name"
+                        android:text="@={loginViewModel.user.userName}"
+                        android:textColor="@color/white"
+                        android:outlineAmbientShadowColor="@color/white"
+                        android:textColorHint="@color/color_hint"
+                        android:theme="@style/MyEditText"/>
+                    <EditText
+                        android:id="@+id/edit_pwd"
+                        android:layout_width="300dp"
+                        android:layout_height="50dp"
+                        android:layout_centerInParent="true"
+                        android:hint="@string/password"
 
-        <EditText
-            android:id="@+id/edit_name"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:text="@={loginViewModel.user.userName}"
-            android:layout_centerInParent="true"
-            android:hint="@string/user_name" />
-
-        <EditText
-            android:id="@+id/edit_pwd"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:text="@={loginViewModel.user.userPwd}"
-            android:layout_centerInParent="true"
-            android:layout_below="@id/edit_name"
-            android:hint="@string/password"/>
-
-        <Button
-            android:id="@+id/test_login"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:onClick="loginClick"
-            android:text="@string/login"
-            android:layout_centerInParent="true"
-            android:layout_below="@id/edit_pwd" />
-
+                        android:text="@={loginViewModel.user.userPwd}"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/color_hint"
+                        android:theme="@style/MyEditText"/>
+                    <Button
+                        android:id="@+id/test_login"
+                        android:layout_width="300dp"
+                        android:layout_height="50dp"
+                        android:layout_below="@id/edit_pwd"
+                        android:layout_centerHorizontal="true"
+                        android:onClick="loginClick"
+                        android:text="@string/login"
+                        android:background="@drawable/btn_selector"/>
+                </RelativeLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="150dp">
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="150dp"
+                android:src="@drawable/xpixel"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
     </RelativeLayout>
 </layout>

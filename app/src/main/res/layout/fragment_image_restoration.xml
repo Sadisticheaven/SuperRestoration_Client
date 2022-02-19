@@ -3,16 +3,10 @@
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/vp_main"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/nav_tab_main"/>
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/nav_tab_main"
+            android:id="@+id/nav_tab_image_restoration"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true">
+            android:layout_height="wrap_content">
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -24,17 +18,18 @@
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/image_restore" />
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/user" />
+                android:text="@string/result" />
         </com.google.android.material.tabs.TabLayout>
-
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:id="@+id/snackbar_container"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_image_restoration"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/nav_tab_main"/>
+            android:layout_below="@id/nav_tab_image_restoration"/>
+        <Button
+            android:id="@+id/run_models_on_datasets"
+            android:text="@string/run"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"/>
     </RelativeLayout>
 </layout>

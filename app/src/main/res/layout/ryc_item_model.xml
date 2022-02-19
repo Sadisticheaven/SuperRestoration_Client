@@ -6,7 +6,9 @@
     <TextView
         android:layout_height="match_parent"
         android:layout_width="360dp"
-        android:id="@+id/text" />
+        android:id="@+id/text"
+        android:textSize="20sp"
+        android:typeface="serif"/>
     <ImageButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
