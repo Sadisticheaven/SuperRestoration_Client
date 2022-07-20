@@ -12,6 +12,7 @@ import org.junit.Assert.*
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+        var map = hashMapOf(Pair("realESRGAN", 1), Pair("srcnn", 2))
+        var arr = ArrayList(map.keys)
     }
 }

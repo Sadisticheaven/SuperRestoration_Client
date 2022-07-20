@@ -1,6 +1,7 @@
 package com.example.superrestoration_client.utils
 
 import android.content.Context
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
@@ -18,6 +19,11 @@ class ModelAdaptor(private var models: ArrayList<Model>, private var context: Co
         private var addButton: ImageButton = itemView.findViewById(R.id.add_model_to_list)
         private var removeButton: ImageButton = itemView.findViewById(R.id.remove_model_from_list)
         init {
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION)
+                    onItemClickListener.onItemClick(it, position)
+            }
             // 为item中控件添加回调
             addButton.setOnClickListener {
                 val position = adapterPosition
@@ -36,12 +42,15 @@ class ModelAdaptor(private var models: ArrayList<Model>, private var context: Co
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = View.inflate(context, R.layout.ryc_item_model, null)
+//        val view = View.inflate(context, R.layout.ryc_item_model, null)
+        val view = LayoutInflater.from(context).inflate(R.layout.ryc_item_model, parent, false)
+
         return ViewHolder(view, mOnItemClickListener, mItemVisibility)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.textView.text = models[position].getModelName() + " x" + models[position].getModelScale().toString()
+        holder.textView.text = models[position].getModelName() +
+                " x" + models[position].getModelScale().toString()
     }
 
     override fun getItemCount(): Int {
@@ -52,6 +61,7 @@ class ModelAdaptor(private var models: ArrayList<Model>, private var context: Co
     interface OnItemClickListener{
         fun onAddButtonClick(view: View, position: Int)
         fun onRemoveButtonClick(view: View, position: Int)
+        fun onItemClick(view: View, position: Int)
     }
 
     private lateinit var mOnItemClickListener: OnItemClickListener

@@ -1,5 +1,6 @@
-package com.example.superrestoration_client.fragment
+package com.example.superrestoration_client.fragment.main_act
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,7 +13,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.example.superrestoration_client.ModelIntroActivity
 import com.example.superrestoration_client.R
+import com.example.superrestoration_client.SuperResolutionActivity
 import com.example.superrestoration_client.databinding.FragmentModelBinding
 import com.example.superrestoration_client.model.Combination
 import com.example.superrestoration_client.utils.Config
@@ -32,6 +36,7 @@ class ModelFragment:Fragment() {
     private lateinit var modelFragmentViewModel: ModelFragmentViewModel
     private lateinit var recyclerView: RecyclerView
     private lateinit var fragmentModelBinding: FragmentModelBinding
+    private lateinit var refreshLayout: SwipeRefreshLayout
     private lateinit var recyclerAdaptor: ModelAdaptor
     private val shareViewModel: MainActivityShareViewModel by activityViewModels()
     override fun onCreateView(
@@ -43,6 +48,7 @@ class ModelFragment:Fragment() {
         modelFragmentViewModel.loadModels(shareViewModel)
         // 需要在此初始化并绑定adapter避免"No adapter attached; skipping layout"
         recyclerView = fragmentModelBinding.recyclerModels
+        refreshLayout = fragmentModelBinding.refreshModel
         initObserver()
         fragmentModelBinding.apply {
             modelViewModel = modelFragmentViewModel
@@ -68,28 +74,19 @@ class ModelFragment:Fragment() {
         shareViewModel.getNotify().observe(viewLifecycleOwner){
             if (it.to == Config.fragmentTag[TAG]){
                 when(it.from) {
-                    Config.fragmentTag["CombinationFragment"] ->  fromCombinationFragment() // 由combination跳转过来，表示新建组合
+                    Config.fragmentTag["CombinationFragment"] -> fromCombinationFragment() // 由combination跳转过来，表示新建组合
                     Config.fragmentTag["ModelSelectedFragment"] -> fromModelSelectedFragment()
                     else ->  switchItemSelectable(false) // 恢复本界面控件状态
                 }
             }
         }
 
-//        shareViewModel.getIsSelectable().observe(viewLifecycleOwner){
-//            switchItemSelectable(it)
-//        }
-
-        // 由于Fragment切换时是异步commit，因此在回调中更改按钮状态
-//        recyclerView.viewTreeObserver.addOnDrawListener {
-//            switchItemSelectable(shareViewModel.getIsSelectable().value!!)
-//            if (shareViewModel.getIsSelectable().value!!){
-//                for (idx in shareViewModel.getSelectedModels())
-//                    switchSelectButtonStatus(idx, true)
-//            }
-//        }
+        refreshLayout.setOnRefreshListener {
+            modelFragmentViewModel.loadModels(shareViewModel)
+            if (refreshLayout.isRefreshing)
+                refreshLayout.isRefreshing = false
+        }
     }
-
-
 
     private fun updateItems(){
         recyclerAdaptor = ModelAdaptor(shareViewModel.getModelList().value!!, this.requireContext())
@@ -112,10 +109,24 @@ class ModelFragment:Fragment() {
                     Snackbar.make(requireActivity().findViewById(R.id.snackbar_container), "移除$position 失败！！", Snackbar.LENGTH_LONG).show()
                 }
             }
+
+            override fun onItemClick(view: View, position: Int) {
+                println("click item: $position")
+                val intent = Intent()
+                intent.setClass(requireContext(), ModelIntroActivity::class.java)
+                intent.putExtra("modelName", shareViewModel.getModelList().value!![position].getModelName())
+                startActivity(intent)
+            }
         })
         recyclerView.adapter = recyclerAdaptor
         // 设置布局，否则无法显示
         recyclerView.layoutManager = LinearLayoutManager(this.requireContext())
+        refreshLayout.refreshDrawableState()
+        refreshLayout.post {
+            // 使用SwipeRefreshLayout更新了adapter后还要手动刷新SwipeRefreshLayout才能显示
+            refreshLayout.isRefreshing = true
+            refreshLayout.isRefreshing = false
+        }
         childFragmentManager.executePendingTransactions()
     }
 
@@ -133,25 +144,16 @@ class ModelFragment:Fragment() {
     }
 
     private fun switchItemSelectable(selectable: Boolean){
-        if (selectable){
-            for (position in 0 until recyclerView.layoutManager!!.itemCount){
-                val itemView =  recyclerView.layoutManager!!.findViewByPosition(position)
-                itemView!!.findViewById<ImageButton>(R.id.add_model_to_list).visibility = View.VISIBLE
-                itemView.findViewById<ImageButton>(R.id.remove_model_from_list).visibility = View.GONE
-            }
-        }
-        else{
-            for (position in 0 until recyclerView.layoutManager!!.itemCount){
-                val itemView =  recyclerView.layoutManager!!.findViewByPosition(position)
-                itemView!!.findViewById<ImageButton>(R.id.add_model_to_list).visibility = View.GONE
-                itemView.findViewById<ImageButton>(R.id.remove_model_from_list).visibility = View.GONE
-            }
-        }
+        if (selectable)
+            recyclerAdaptor.setItemVisibility(ModelAdaptor.ItemVisibility(View.VISIBLE, View.GONE))
+        else
+            recyclerAdaptor.setItemVisibility(ModelAdaptor.ItemVisibility(View.GONE, View.GONE))
+        // 需要重新设置adapter才能刷新界面
+        recyclerView.adapter = recyclerAdaptor
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         add_model_finish.setOnClickListener{
             when(shareViewModel.getNotify().value!!.from){
                 Config.fragmentTag["CombinationFragment"] -> backToCombinationFragment()
@@ -194,6 +196,7 @@ class ModelFragment:Fragment() {
         shareViewModel.getNotify().postValue(
             FragmentNotify(Config.fragmentTag[TAG]!!, Config.fragmentTag["ModelSelectedFragment"]!!))
     }
+
 
     override fun onPause() {
         Log.e(TAG, "onPause")

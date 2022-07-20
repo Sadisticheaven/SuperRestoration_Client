@@ -17,4 +17,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_algorithm">添加算法</string>
     <string name="add_dataset">添加数据集</string>
+    <string name="back">返回</string>
+    <string name="view">查看</string>
+    <string name="single_algorithm">单个算法</string>
+    <string name="multi_algorithms">多算法对比</string>
 </resources>

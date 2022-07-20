@@ -1,19 +1,15 @@
-package com.example.superrestoration_client.fragment
+package com.example.superrestoration_client.fragment.main_act
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.NumberPicker
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.superrestoration_client.R
 import com.example.superrestoration_client.databinding.FragmentHistoryBinding
 import com.example.superrestoration_client.utils.Config
-import com.example.superrestoration_client.utils.HistoryAdaptor
 import com.example.superrestoration_client.utils.ViewPagerAdaptor
 import com.example.superrestoration_client.view_model.ImageRestorationViewModel
 import com.example.superrestoration_client.view_model.MainActivityShareViewModel
@@ -48,7 +44,7 @@ class HistoryFragment : Fragment() {
 
     private fun initView() {
         val childFragments = arrayListOf(ResultFragment(), PictureFragment())
-        val vpAdaptor = ViewPagerAdaptor(childFragments, requireActivity().supportFragmentManager, lifecycle)
+        val vpAdaptor = ViewPagerAdaptor(childFragments, childFragmentManager, lifecycle)
         fragmentHistoryBinding.vpHistory.adapter = vpAdaptor
     }
 }

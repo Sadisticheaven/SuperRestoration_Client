@@ -1,33 +1,17 @@
-package com.example.superrestoration_client.fragment
+package com.example.superrestoration_client.fragment.main_act
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.superrestoration_client.R
-import com.example.superrestoration_client.databinding.FragmentModelBinding
 import com.example.superrestoration_client.databinding.FragmentModelCombinationBinding
 import com.example.superrestoration_client.utils.Config
-import com.example.superrestoration_client.utils.ModelAdaptor
 import com.example.superrestoration_client.utils.ViewPagerAdaptor
 import com.example.superrestoration_client.view_model.MainActivityShareViewModel
-import com.example.superrestoration_client.view_model.ModelFragmentViewModel
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 /**
@@ -54,7 +38,7 @@ class ModelCombinationFragment: Fragment() {
         val childFragments = arrayListOf(
             ModelFragment(), CombinationFragment()
         )
-        val vpAdaptor = ViewPagerAdaptor(childFragments, requireActivity().supportFragmentManager, lifecycle)
+        val vpAdaptor = ViewPagerAdaptor(childFragments, childFragmentManager, lifecycle)
         fragmentModelCombinationBinding.vpModelCombination.adapter = vpAdaptor
         TabLayoutMediator(fragmentModelCombinationBinding.navTabModelCombination,
             fragmentModelCombinationBinding.vpModelCombination

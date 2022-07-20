@@ -1,4 +1,4 @@
-package com.example.superrestoration_client.fragment
+package com.example.superrestoration_client.fragment.main_act
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -61,7 +61,6 @@ class DatasetSelectedFragment : Fragment() {
         // 实现Item中控件的回调
         recyclerAdaptor.setOnItemClickListener(object: DatasetAdaptor.OnItemClickListener{
             override fun onAddButtonClick(view: View, position: Int) {}
-
             override fun onRemoveButtonClick(view: View, position: Int) {
                 recyclerAdaptor.removeItem(position)
                 imageRestorationViewModel.getSelectedDatasetsIndex().value!!.removeAt(position)
@@ -74,7 +73,7 @@ class DatasetSelectedFragment : Fragment() {
         recyclerView.adapter = recyclerAdaptor
         // 设置布局，否则无法显示
         recyclerView.layoutManager = LinearLayoutManager(this.requireContext())
-        childFragmentManager.executePendingTransactions()
+//        childFragmentManager.executePendingTransactions()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -1,4 +1,4 @@
-package com.example.superrestoration_client.fragment
+package com.example.superrestoration_client.fragment.main_act
 
 import android.os.Bundle
 import android.util.Log

@@ -7,4 +7,10 @@ import retrofit2.http.*
 interface HistoryRequest {
     @GET("history/getByUserId")
     fun getByUserId(@Query("userId") userId:Int): Call<ArrayList<ProcessHistory>>
+
+    @GET("history/getImagesUrl")
+    fun getImagesUrl(@Query("historyId") historyId:Int,
+                     @Query("modelId") modelId:Int,
+                     @Query("datasetId") datasetId:Int): Call<ArrayList<String>>
+
 }

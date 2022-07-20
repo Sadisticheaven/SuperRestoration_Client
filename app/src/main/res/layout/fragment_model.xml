@@ -31,11 +31,12 @@
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/edit_row" >
+            android:layout_below="@id/edit_row"
+            android:id="@+id/refresh_model">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_models"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"/>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </RelativeLayout>

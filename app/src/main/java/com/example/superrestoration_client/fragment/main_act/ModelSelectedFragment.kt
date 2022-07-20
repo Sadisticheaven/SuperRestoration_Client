@@ -1,5 +1,6 @@
-package com.example.superrestoration_client.fragment
+package com.example.superrestoration_client.fragment.main_act
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.superrestoration_client.ModelIntroActivity
 import com.example.superrestoration_client.R
 import com.example.superrestoration_client.databinding.FragmentModelSelectedBinding
 import com.example.superrestoration_client.model.Model
@@ -70,12 +72,20 @@ class ModelSelectedFragment : Fragment() {
                 Snackbar.make(requireActivity().findViewById(R.id.snackbar_container),
                     "移除$position 成功！！", Snackbar.LENGTH_LONG).show()
             }
+
+            override fun onItemClick(view: View, position: Int) {
+                println("click item: $position")
+                val intent = Intent()
+                intent.setClass(requireContext(), ModelIntroActivity::class.java)
+                intent.putExtra("modelName", shareViewModel.getModelList().value!![position].getModelName())
+                startActivity(intent)
+            }
         })
         recyclerAdaptor.setItemVisibility(ModelAdaptor.ItemVisibility(View.GONE, View.VISIBLE))
         recyclerView.adapter = recyclerAdaptor
         // 设置布局，否则无法显示
         recyclerView.layoutManager = LinearLayoutManager(this.requireContext())
-        childFragmentManager.executePendingTransactions()
+//        childFragmentManager.executePendingTransactions()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

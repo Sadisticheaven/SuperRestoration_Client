@@ -1,4 +1,4 @@
-package com.example.superrestoration_client.fragment
+package com.example.superrestoration_client.fragment.main_act
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.viewpager2.widget.ViewPager2
 import com.example.superrestoration_client.R
 import com.example.superrestoration_client.databinding.FragmentImageRestorationBinding
 import com.example.superrestoration_client.utils.Config
@@ -33,7 +34,16 @@ class ImageRestorationFragment : Fragment() {
 
     private fun initView() {
         val childFragments = arrayListOf(ModelSelectedFragment(), DatasetSelectedFragment(), HistoryFragment())
-        val vpAdaptor = ViewPagerAdaptor(childFragments, requireActivity().supportFragmentManager, lifecycle)
+        val vpAdaptor = ViewPagerAdaptor(childFragments, childFragmentManager, lifecycle)
+        fragmentImageRestorationBinding.vpImageRestoration.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                when(position){
+                    2 -> fragmentImageRestorationBinding.runModelsOnDatasets.visibility = View.GONE
+                    else -> fragmentImageRestorationBinding.runModelsOnDatasets.visibility = View.VISIBLE
+                }
+            }
+        })
         fragmentImageRestorationBinding.vpImageRestoration.adapter = vpAdaptor
         TabLayoutMediator(fragmentImageRestorationBinding.navTabImageRestoration,
             fragmentImageRestorationBinding.vpImageRestoration
@@ -62,9 +72,15 @@ class ImageRestorationFragment : Fragment() {
     private fun initObserver() {
         shareViewModel.getNotify().observe(viewLifecycleOwner){
             when(it.to){
-                Config.fragmentTag["ModelSelectedFragment"] -> fragmentImageRestorationBinding.vpImageRestoration.currentItem = 0
-                Config.fragmentTag["DatasetSelectedFragment"] -> fragmentImageRestorationBinding.vpImageRestoration.currentItem = 1
-                Config.fragmentTag["ResultFragment"] -> fragmentImageRestorationBinding.vpImageRestoration.currentItem = 2
+                Config.fragmentTag["ModelSelectedFragment"] -> {
+                    fragmentImageRestorationBinding.vpImageRestoration.currentItem = 0
+                }
+                Config.fragmentTag["DatasetSelectedFragment"] -> {
+                    fragmentImageRestorationBinding.vpImageRestoration.currentItem = 1
+                }
+                Config.fragmentTag["ResultFragment"] -> {
+                    fragmentImageRestorationBinding.vpImageRestoration.currentItem = 2
+                }
             }
         }
         imageRestorationViewModel.getRestorationRequestCode().observe(viewLifecycleOwner){
@@ -77,9 +93,13 @@ class ImageRestorationFragment : Fragment() {
                     "用户不存在！！", Snackbar.LENGTH_LONG).show()
                 99 -> Snackbar.make(requireActivity().findViewById(R.id.snackbar_container),
                     "服务器程序运行错误！", Snackbar.LENGTH_LONG).show()
-                100 -> Snackbar.make(requireActivity().findViewById(R.id.snackbar_container),
-                    "处理完成~", Snackbar.LENGTH_LONG).show()
+                200 -> {
+                    Snackbar.make(requireActivity().findViewById(R.id.snackbar_container),
+                        "提交成功，请等待服务器处理~~", Snackbar.LENGTH_LONG).show()
+                }
             }
         }
     }
+
+
 }

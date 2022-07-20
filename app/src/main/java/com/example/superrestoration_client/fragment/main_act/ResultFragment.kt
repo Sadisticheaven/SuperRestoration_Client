@@ -1,4 +1,4 @@
-package com.example.superrestoration_client.fragment
+package com.example.superrestoration_client.fragment.main_act
 
 import android.os.Bundle
 import android.util.Log
@@ -31,13 +31,13 @@ class ResultFragment : Fragment() {
     private lateinit var recyclerAdaptor: HistoryAdaptor
     private lateinit var fragmentResultBinding: FragmentResultBinding
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        fragmentResultBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_result, container, false)
+        fragmentResultBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_result, container, false)
         recyclerView = fragmentResultBinding.recyclerHistories
         refreshLayout = fragmentResultBinding.refreshHistory
         imageRestorationViewModel.refreshHistory(shareViewModel.getCurrentUser().value!!.getUserId())
@@ -61,27 +61,32 @@ class ResultFragment : Fragment() {
                     "刷新成功", Snackbar.LENGTH_LONG).show()
             }
         }
-
     }
 
     private fun updateItems(){
-        recyclerAdaptor = HistoryAdaptor(imageRestorationViewModel.getHistory().value!!, this.requireContext())
+        recyclerAdaptor = HistoryAdaptor(
+            imageRestorationViewModel.getHistory().value!!, this.requireContext())
         // 实现Item中控件的回调
         recyclerAdaptor.setOnItemClickListener(object: HistoryAdaptor.OnItemClickListener{
             override fun onItemClick(view: View, position: Int) {
-                shareViewModel.getNotify().postValue(FragmentNotify(Config.fragmentTag[TAG]!!, Config.fragmentTag["PictureFragment"]!!))
-                Log.e(TAG, "click")
+                imageRestorationViewModel.getSelectedHistory().value =
+                    imageRestorationViewModel.getHistory().value!![position]
+                imageRestorationViewModel.loadModelsAndDatasetsInHistory(
+                    shareViewModel.getModelList().value!!, shareViewModel.getDatasetList().value!!)
+                imageRestorationViewModel.getImagesUrl().value = arrayListOf()
+                shareViewModel.getNotify().postValue(
+                    FragmentNotify(Config.fragmentTag[TAG]!!, Config.fragmentTag["PictureFragment"]!!))
             }
         })
         recyclerView.adapter = recyclerAdaptor
         // 设置布局，否则无法显示
-        refreshLayout.refreshDrawableState()
         recyclerView.layoutManager = LinearLayoutManager(this.requireContext())
-        childFragmentManager.executePendingTransactions()
+        refreshLayout.refreshDrawableState()
         refreshLayout.post {
             // 使用SwipeRefreshLayout更新了adapter后还要手动刷新SwipeRefreshLayout才能显示
             refreshLayout.isRefreshing = true
             refreshLayout.isRefreshing = false
         }
+//        childFragmentManager.executePendingTransactions()
     }
 }

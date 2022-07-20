@@ -1,6 +1,8 @@
 package com.example.superrestoration_client.utils
 
 import android.content.Context
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
@@ -36,7 +38,8 @@ class DatasetAdaptor(private var datasets: ArrayList<Dataset>, private var conte
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = View.inflate(context, R.layout.ryc_item_dataset, null)
+//        val view = View.inflate(context, R.layout.ryc_item_dataset, null)
+        val view = LayoutInflater.from(context).inflate(R.layout.ryc_item_dataset, parent, false)
         return ViewHolder(view, mOnItemClickListener, mItemVisibility)
     }
 

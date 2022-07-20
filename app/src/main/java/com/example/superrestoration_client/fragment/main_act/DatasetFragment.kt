@@ -1,4 +1,4 @@
-package com.example.superrestoration_client.fragment
+package com.example.superrestoration_client.fragment.main_act
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -26,6 +26,7 @@ class DatasetFragment:Fragment() {
     private lateinit var datasetFragmentViewModel: DatasetFragmentViewModel
     private lateinit var fragmentDatasetBinding: FragmentDatasetBinding
     private lateinit var recyclerView: RecyclerView
+    private lateinit var adaptor: DatasetAdaptor
     private val shareViewModel: MainActivityShareViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -60,7 +61,7 @@ class DatasetFragment:Fragment() {
     }
 
     private fun updateItems(){
-        val adaptor = DatasetAdaptor(shareViewModel.getDatasetList().value!!, this.requireContext())
+        adaptor = DatasetAdaptor(shareViewModel.getDatasetList().value!!, this.requireContext())
         // 实现Item中控件的回调
         adaptor.setOnItemClickListener(object: DatasetAdaptor.OnItemClickListener{
             override fun onAddButtonClick(view: View, position: Int) {
@@ -71,7 +72,6 @@ class DatasetFragment:Fragment() {
                     Snackbar.make(requireActivity().findViewById(R.id.snackbar_container), "添加$position 失败！！", Snackbar.LENGTH_LONG).show()
                 }
             }
-
             override fun onRemoveButtonClick(view: View, position: Int) {
                 if (shareViewModel.removeDataset(position)){
                     switchSelectButtonStatus(position, false)
@@ -82,7 +82,6 @@ class DatasetFragment:Fragment() {
             }
         })
         recyclerView.adapter = adaptor
-        // 设置布局，否则无法显示
         recyclerView.layoutManager = LinearLayoutManager(this.requireContext())
         childFragmentManager.executePendingTransactions()
     }
@@ -101,20 +100,11 @@ class DatasetFragment:Fragment() {
     }
 
     private fun switchItemSelectable(selectable: Boolean){
-        if (selectable){
-            for (position in 0 until recyclerView.layoutManager!!.itemCount){
-                val itemView =  recyclerView.layoutManager!!.findViewByPosition(position)
-                itemView!!.findViewById<ImageButton>(R.id.add_dataset_to_list).visibility = View.VISIBLE
-                itemView.findViewById<ImageButton>(R.id.remove_dataset_from_list).visibility = View.GONE
-            }
-        }
-        else{
-            for (position in 0 until recyclerView.layoutManager!!.itemCount){
-                val itemView =  recyclerView.layoutManager!!.findViewByPosition(position)
-                itemView!!.findViewById<ImageButton>(R.id.add_dataset_to_list).visibility = View.GONE
-                itemView.findViewById<ImageButton>(R.id.remove_dataset_from_list).visibility = View.GONE
-            }
-        }
+        if (selectable)
+            adaptor.setItemVisibility(DatasetAdaptor.ItemVisibility(View.VISIBLE, View.GONE))
+        else
+            adaptor.setItemVisibility(DatasetAdaptor.ItemVisibility(View.GONE, View.GONE))
+        recyclerView.adapter = adaptor
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

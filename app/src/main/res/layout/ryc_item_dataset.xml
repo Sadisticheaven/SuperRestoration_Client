@@ -1,20 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:layout_height="40dp"
+    android:orientation="horizontal"
+    android:background="@drawable/btn_selector"
+    android:weightSum="1">
     <TextView
+        android:id="@+id/dataset_text"
         android:layout_height="match_parent"
-        android:layout_width="360dp"
-        android:id="@+id/dataset_text" />
+        android:gravity="center_vertical"
+        android:layout_width="0dp"
+        android:textSize="20sp"
+        android:typeface="serif"
+        android:layout_weight="0.8"/>
     <ImageButton
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="0.2"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_baseline_check_24"
         android:id="@+id/add_dataset_to_list"
         android:visibility="gone"/>
     <ImageButton
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="0.2"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_baseline_clear_24"
         android:id="@+id/remove_dataset_from_list"

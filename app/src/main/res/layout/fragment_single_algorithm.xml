@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/picker_panel"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:background="@drawable/rounded_rectangle_activity">
+            <NumberPicker
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:id="@+id/number_picker_modelName"
+                android:layout_marginHorizontal="10dp"
+                android:textSize="10dp"/>
+            <NumberPicker
+                android:layout_width="0dp"
+                android:layout_weight="0.25"
+                android:layout_height="wrap_content"
+                android:id="@+id/number_picker_modelScale"
+                android:layout_marginHorizontal="10dp"/>
+            <Button
+                android:id="@+id/btn_runModelOnPicture"
+                android:layout_width="0dp"
+                android:layout_weight="0.25"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="应用"
+                android:background="@drawable/btn_selector"
+                android:onClick="runModelOnPicture"/>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/picker_panel">
+
+            <SeekBar
+                android:id="@+id/seekBar_compare"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="100"
+                android:progress="50"
+                android:progressDrawable="@color/white"
+                android:padding="0dp"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"/>
+
+            <com.example.superrestoration_client.utils.CompareImageView
+                android:id="@+id/display_image_single"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/seekBar_compare"/>
+
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>

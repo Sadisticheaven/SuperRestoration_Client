@@ -6,11 +6,11 @@
     app:startDestination="@id/modelFragment">
     <fragment
         android:id="@+id/modelFragment"
-        android:name="com.example.superrestoration_client.fragment.ModelFragment"
+        android:name="com.example.superrestoration_client.fragment.main_act.ModelFragment"
         tools:layout="@layout/fragment_model" />
     <fragment
         android:id="@+id/combinationFragment"
-        android:name="com.example.superrestoration_client.fragment.CombinationFragment"
+        android:name="com.example.superrestoration_client.fragment.main_act.CombinationFragment"
         tools:layout="@layout/fragment_combination" >
         <action
             android:id="@+id/action_combinationFragment_to_modelFragment"

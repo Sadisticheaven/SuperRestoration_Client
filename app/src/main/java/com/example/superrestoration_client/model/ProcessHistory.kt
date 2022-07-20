@@ -17,6 +17,11 @@ class ProcessHistory(): BaseObservable(){
         commitTime = time
     }
     @Bindable
+    fun getHistoryId(): Int {
+        return historyId
+    }
+
+    @Bindable
     fun getUserId(): Int {
         return userId
     }

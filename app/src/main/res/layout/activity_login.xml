@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-
     <data>
         <variable
             name="loginViewModel"
             type="com.example.superrestoration_client.view_model.LoginActivityViewModel" />
     </data>
-
     <RelativeLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:background="@drawable/pic_login_day">
+        android:background="@drawable/pic_login">
         <RelativeLayout
             android:id="@+id/login_panel"
             android:layout_width="match_parent"
@@ -32,21 +30,20 @@
                         android:layout_centerInParent="true"
                         android:hint="@string/user_name"
                         android:text="@={loginViewModel.user.userName}"
-                        android:textColor="@color/white"
-                        android:outlineAmbientShadowColor="@color/white"
-                        android:textColorHint="@color/color_hint"
-                        android:theme="@style/MyEditText"/>
+                        android:theme="@style/MyEditText"
+                        android:background="@drawable/rounded_rectangle_white"
+                        android:layout_marginBottom="5dp"/>
                     <EditText
                         android:id="@+id/edit_pwd"
                         android:layout_width="300dp"
                         android:layout_height="50dp"
                         android:layout_centerInParent="true"
+                        android:inputType="textPassword"
                         android:hint="@string/password"
-
                         android:text="@={loginViewModel.user.userPwd}"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/color_hint"
-                        android:theme="@style/MyEditText"/>
+                        android:theme="@style/MyEditText"
+                        android:background="@drawable/rounded_rectangle_white"
+                        android:layout_marginBottom="10dp"/>
                     <Button
                         android:id="@+id/test_login"
                         android:layout_width="300dp"
@@ -54,6 +51,7 @@
                         android:layout_below="@id/edit_pwd"
                         android:layout_centerHorizontal="true"
                         android:onClick="loginClick"
+                        android:textColor="@color/white"
                         android:text="@string/login"
                         android:background="@drawable/btn_selector"/>
                 </RelativeLayout>

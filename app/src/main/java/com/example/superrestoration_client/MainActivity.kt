@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.superrestoration_client.databinding.ActivityMainBinding
-import com.example.superrestoration_client.fragment.*
+import com.example.superrestoration_client.fragment.main_act.*
 import com.example.superrestoration_client.utils.Config
 import com.example.superrestoration_client.utils.ViewPagerAdaptor
 import com.example.superrestoration_client.view_model.ImageRestorationViewModel
@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity(){
     private lateinit var mainActivityShareViewModel: MainActivityShareViewModel
     private lateinit var imageRestorationViewModel: ImageRestorationViewModel
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -31,6 +30,7 @@ class MainActivity : AppCompatActivity(){
 
         initView()
         initObserver()
+
     }
 
     private fun initObserver() {
@@ -45,11 +45,11 @@ class MainActivity : AppCompatActivity(){
         // jump to target fragment
         mainActivityShareViewModel.getNotify().observe(this){
             when(it.to){
-                Config.fragmentTag["ModelFragment"] -> activityMainBinding.vpMain.currentItem = 0
-                Config.fragmentTag["CombinationFragment"] -> activityMainBinding.vpMain.currentItem = 0
-                Config.fragmentTag["DatasetFragment"] -> activityMainBinding.vpMain.currentItem = 1
-                Config.fragmentTag["ModelSelectedFragment"] -> activityMainBinding.vpMain.currentItem = 2
-                Config.fragmentTag["DatasetSelectedFragment"] -> activityMainBinding.vpMain.currentItem = 2
+                Config.fragmentTag["ModelFragment"] -> activityMainBinding.vpMain.currentItem = 1
+                Config.fragmentTag["CombinationFragment"] -> activityMainBinding.vpMain.currentItem = 1
+                Config.fragmentTag["DatasetFragment"] -> activityMainBinding.vpMain.currentItem = 2
+                Config.fragmentTag["ModelSelectedFragment"] -> activityMainBinding.vpMain.currentItem = 3
+                Config.fragmentTag["DatasetSelectedFragment"] -> activityMainBinding.vpMain.currentItem = 3
             }
         }
     }
@@ -60,7 +60,8 @@ class MainActivity : AppCompatActivity(){
 //        // 将navController与navBottom绑定
 //        NavigationUI.setupWithNavController(activityMainBinding.navBottom, navController)
         val childFragments = arrayListOf(
-            ModelCombinationFragment(), DatasetFragment(), ImageRestorationFragment(), UserFragment()
+            HomeFragment(), ModelCombinationFragment(),
+            DatasetFragment(), ImageRestorationFragment(), UserFragment()
         )
         val vpAdaptor = ViewPagerAdaptor(childFragments, supportFragmentManager, lifecycle)
         activityMainBinding.vpMain.adapter = vpAdaptor
@@ -68,10 +69,11 @@ class MainActivity : AppCompatActivity(){
             activityMainBinding.vpMain
         ) { tab, position ->
             when(position) {
-                0 -> tab.text = resources.getString(R.string.algorithm)
-                1 -> tab.text = resources.getString(R.string.dataset)
-                2 -> tab.text = resources.getString(R.string.image_restore)
-                3 -> tab.text = resources.getString(R.string.user)
+                0 -> tab.text = "首页"
+                1 -> tab.text = resources.getString(R.string.algorithm)
+                2 -> tab.text = resources.getString(R.string.dataset)
+                3 -> tab.text = resources.getString(R.string.image_restore)
+                4 -> tab.text = resources.getString(R.string.user)
             }
         }.attach()
     }
